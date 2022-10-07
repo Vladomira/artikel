@@ -5,8 +5,8 @@ import { Button } from "../../button/button";
 import { Icon } from "../../icon";
 import { SearchIcon } from "../../search-icon";
 import { WrapperBox } from "../../wrapper-box";
-import { ModalNavBox } from "./modal-nav";
-import { ModalSearch } from "./modal-search";
+import { ModalNavBox } from "./modal/modal-nav";
+import { ModalSearch } from "./modal/modal-search";
 
 export const MobileHeader = () => {
     const [isOpenNav, setisOpenNav] = useState(false);
@@ -42,8 +42,8 @@ export const MobileHeader = () => {
                 </Button>
             </WrapperBox>
 
-            {isOpenNav && <ModalNavBox setisOpen={setisOpenNav} />}
-            {isOpenSearch && <ModalSearch setisOpen={setIsOpenSearch} />}
+            {isOpenNav && <ModalNavBox setIsOpen={setisOpenNav} />}
+            {isOpenSearch && <ModalSearch setIsOpen={setIsOpenSearch} />}
         </WrapperBox>
     );
 };

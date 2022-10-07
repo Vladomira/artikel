@@ -4,7 +4,7 @@ import { MediaScreen } from "../../../../../utils/media";
 import { ActionIcon } from "../../../../action-icon";
 import { SearchIcon } from "../../../../search-icon";
 import { WrapperBox } from "../../../../wrapper-box";
-import { StyledInput } from "../../modal-search/styled-input.styles";
+import { StyledInput } from "../../../../input/styled-input.styles";
 
 type SearchInputHeaderprops = {
     setIsOpen: (prop: boolean) => void;

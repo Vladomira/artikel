@@ -53,6 +53,9 @@ img {
 
 * {
   box-sizing: border-box; 
-  
+  letter-spacing: .03em;
+  font-weight: 300;
+  font-size: 12px;
+  line-height:1.4;
 }
 `;

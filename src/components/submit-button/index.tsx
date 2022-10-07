@@ -6,14 +6,19 @@ import { Label } from "../label";
 type SubmitButtonProps = {
     backColor?: string;
     text: string;
+    marginTop?: number;
 };
-export const SubmitButton: FC<SubmitButtonProps> = ({ backColor, text }) => {
+export const SubmitButton: FC<SubmitButtonProps> = ({
+    backColor,
+    text,
+    marginTop,
+}) => {
     return (
         <Button
             borderRadius="2px"
             padding="10px 20px"
             background={backColor || Colors.WHITE}
-            marginTop={28}
+            marginTop={marginTop || 28}
             width="100%"
             type="submit"
         >

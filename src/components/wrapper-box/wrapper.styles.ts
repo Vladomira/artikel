@@ -18,6 +18,8 @@ export type WrapperBoxProps = {
     top?: string;
     right?: string;
     left?: string;
+    onClick?: () => void;
+    zIndex?: number;
 };
 
 export const WrapperBoxStyled = styled.div<WrapperBoxProps>`
@@ -52,5 +54,6 @@ export const WrapperBoxStyled = styled.div<WrapperBoxProps>`
         marginBottom ? `${marginBottom}px` : ""};
     margin: ${({ margin }): string => (margin ? margin : "")};
 
-    background: ${({ background }) => (background ? `${background}` : "")};
+    background: ${({ background }) => (background ? background : "")};
+    z-index: ${({ zIndex }) => (zIndex ? zIndex : "")};
 `;

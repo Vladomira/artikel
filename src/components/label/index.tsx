@@ -25,6 +25,7 @@ export const Label: FC<LabelProps> = ({
     fontStyle,
     hoverColor,
     width,
+    cursor,
 }) => {
     return (
         <StyledLabel
@@ -48,6 +49,7 @@ export const Label: FC<LabelProps> = ({
             textShadow={textShadow}
             fontStyle={fontStyle}
             hoverColor={hoverColor}
+            cursor={cursor}
         >
             {text}
         </StyledLabel>
