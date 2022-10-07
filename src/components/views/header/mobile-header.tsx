@@ -23,6 +23,7 @@ export const MobileHeader = () => {
                     fill={Colors.WHITE}
                     size={24}
                     onClick={() => setIsOpenSearch(true)}
+                    btnWidth={""}
                 />
                 <Button
                     marginLeft={24}
