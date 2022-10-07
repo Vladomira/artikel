@@ -10,7 +10,7 @@ export const ModalSearch: FC<ModalBoxProps> = ({ setIsOpen }) => (
     <Modal
         mediaHidden={MediaScreen.DESKTOP}
         setisOpen={setIsOpen}
-        paddingTop={50}
+        paddingTop={"50px"}
         paddingLeft="10%"
         paddingRight="10%"
         title="Zoek"
