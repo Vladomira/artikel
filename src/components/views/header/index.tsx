@@ -9,10 +9,11 @@ import { MediaScreen } from "../../../utils/media";
 import { BoxWithImg } from "../../wrapper-box/box-with-img";
 import { LogoBox } from "./logo-box";
 import { ChapterNavigation } from "./chapter-navigation";
+import { StyledHeader } from "./header.styles";
 
 export const Header = () => {
     return (
-        <header>
+        <StyledHeader>
             <WrapperBox
                 top={"0px"}
                 width="100%"
@@ -51,6 +52,6 @@ export const Header = () => {
 
                 <ChapterNavigation />
             </WrapperBox>
-        </header>
+        </StyledHeader>
     );
 };

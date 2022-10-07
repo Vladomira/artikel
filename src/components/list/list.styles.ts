@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
 export type ListProps = {
+    position?: string;
+    top?: string;
+    right?: string;
+    left?: string;
+    bottom?: string;
+
     borderBottom?: string;
     margin?: string;
     padding?: string;
@@ -14,9 +20,16 @@ export type ListProps = {
     direction?: string;
     background?: string;
     overflow?: string;
+    boxShadow?: string;
 };
 
 export const List = styled.ul<ListProps>`
+    position: ${({ position }): string => position || ""};
+    top: ${({ top }): string => top || ""};
+    right: ${({ right }): string => right || ""};
+    left: ${({ left }): string => left || ""};
+    bottom: ${({ bottom }): string => bottom || ""};
+
     display: ${({ display }): string => (display ? `${display}` : "")};
     flex-wrap: ${({ flexWrap }): string => (flexWrap ? `${flexWrap}` : "")};
     justify-content: ${({ jConten }): string => (jConten ? `${jConten}` : "")};
@@ -35,5 +48,6 @@ export const List = styled.ul<ListProps>`
     padding: ${({ padding }): string => (padding ? `${padding}` : "")};
 
     background: ${({ background }): string => (background ? background : "")};
+    box-shdow: ${({ boxShadow }): string => (boxShadow ? boxShadow : "")};
     overflow: ${({ overflow }): string => (overflow ? `${overflow}` : "auto")};
 `;

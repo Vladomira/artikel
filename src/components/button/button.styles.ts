@@ -2,6 +2,10 @@ import styled from "styled-components";
 import { ButtonProps } from "./button";
 
 export const ButtonStyled = styled.button<ButtonProps>`
+    position: ${({ position }) => (position ? position : "")};
+    top: ${({ top }) => (top ? top : "")};
+    right: ${({ right }) => (right ? right : "")};
+
     display: ${({ display }) => (display ? `${display}` : "flex")};
     flex-direction: ${({ direction }) => (direction ? `${direction}` : "")};
     justify-content: ${({ jContent }) => (jContent ? `${jContent}` : "center")};

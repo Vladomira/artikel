@@ -6,6 +6,9 @@ export type ButtonProps = {
     jContent?: string;
     alignItems?: string;
     direction?: string;
+    position?: "absolute" | "relative" | "fixed";
+    top?: string;
+    right?: string;
 
     width?: string;
     maxWidth?: number;
@@ -43,9 +46,13 @@ export const Button = ({
     maxWidth,
     margin,
     type,
+    position,
+    top,
+    right,
 }: PropsWithChildren<ButtonProps>) => {
     return (
         <ButtonStyled
+            position={position}
             jContent={jContent}
             type={type}
             border={border}
@@ -64,6 +71,8 @@ export const Button = ({
             marginRight={marginRight}
             maxWidth={maxWidth}
             margin={margin}
+            top={top}
+            right={right}
         >
             {children}
         </ButtonStyled>

@@ -9,4 +9,5 @@ export enum Colors {
     MIDDLE_GREY = "#888",
     ORANGE = "#f1633e",
     GREY_VARIANT = "#d8d8d8",
+    BLUE = "#6b3ef1",
 }

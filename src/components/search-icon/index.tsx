@@ -6,7 +6,7 @@ type SearchIconProps = {
     size: number;
     onClick: () => void;
     background?: string;
-    btnWidth: string;
+    btnWidth?: string;
     borderRadius?: string;
     btnHeight?: number;
 };

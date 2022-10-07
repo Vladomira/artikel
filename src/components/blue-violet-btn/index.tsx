@@ -7,7 +7,7 @@ import { BlueVioletBtn, BlueVioletBtnProps } from "./blue-violet-btn-styles";
 type BlueVioletProps = BlueVioletBtnProps & {
     text: string;
     padding: string;
-    onClick: () => void;
+    onClick?: () => void;
     marginLeft?: number;
 };
 export const BlueViolet: FC<BlueVioletProps> = ({

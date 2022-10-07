@@ -5,7 +5,7 @@ export type LabelStyledProps = {
     fontSize: number;
     fontWeight: number;
     lineHeight: string;
-    letterSpacing: string;
+    letterSpacing?: string;
 
     marginTop?: number;
     marginLeft?: number;
@@ -15,7 +15,7 @@ export type LabelStyledProps = {
     marginBottom?: number;
     textAlign?: string;
 
-    textDecoration?: string;
+    textDecoration?: "underline";
     textTransform?: "uppercase";
 
     backGround?: string;
@@ -27,15 +27,17 @@ export type LabelStyledProps = {
     fontStyle?: "italic";
     hoverColor?: string;
     width?: "max-content";
+    cursor?: string;
 };
 
 export const StyledLabel = styled.span<LabelStyledProps>`
-    line-height: ${({ lineHeight }): string => lineHeight};
+    line-height: ${({ lineHeight }): string => lineHeight || "1.4"};
     text-align: ${({ textAlign = "center" }): string => textAlign};
     letter-spacing: ${({ letterSpacing }): string => letterSpacing || ""};
     color: ${({ color }): string => color};
     font-size: ${({ fontSize }): string => `${fontSize.toString()}px`};
-    font-weight: ${({ fontWeight }): string => `${fontWeight.toString()}`};
+    font-weight: ${({ fontWeight }): string =>
+        fontWeight ? `${fontWeight.toString()}` : "300"};
     font-family: ${({ fontFamily }): string => fontFamily || ""};
     font-style: ${({ fontStyle }): string => fontStyle || ""};
 
@@ -56,9 +58,9 @@ export const StyledLabel = styled.span<LabelStyledProps>`
 
     opacity: ${({ opacity }): string => (opacity ? opacity : "")};
     text-shadow: ${({ textShadow }): string => (textShadow ? textShadow : "")};
+    cursor: ${({ cursor }): string => (cursor ? cursor : "")};
 
-    &:hover,
-    &:focus {
+    &:hover {
         color: ${({ hoverColor }): string => hoverColor || ""};
     }
 `;
