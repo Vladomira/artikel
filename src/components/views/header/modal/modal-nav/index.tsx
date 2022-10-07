@@ -44,7 +44,11 @@ export const ModalNavBox: FC<ModalBoxProps> = ({ setIsOpen }) => {
                     fontFamily="Merriweather Sans,sans-serif"
                 />
             </WrapperBox>
-            <BlueViolet text="Word een schrijver" padding="10px 20px" />
+            <BlueViolet
+                text="Word een schrijver"
+                padding="10px 20px"
+                onClick={() => console.log("click")}
+            />
 
             <ModalNavigation setIsOpen={setIsOpen} />
 
