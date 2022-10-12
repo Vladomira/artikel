@@ -1,3 +1,3 @@
-export type SetIsOpen = {
+export type SetIsOpenProps = {
     setIsOpen: (prop: boolean) => void;
 };

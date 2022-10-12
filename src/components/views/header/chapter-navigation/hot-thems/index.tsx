@@ -22,10 +22,15 @@ export const HotThems: FC = () => {
                 letterSpacing={""}
                 text={"Hot topics:"}
                 marginRight={8}
+                whiteSpace="nowrap"
             />
-            <List display="flex">
+            <List display="flex" overflow="unset">
                 {hotThemsItems.map(({ name, link }) => (
-                    <HotThemItem key={name} marginRightNotLast={16}>
+                    <HotThemItem
+                        key={name}
+                        marginRightNotLast={16}
+                        alignItems="center"
+                    >
                         <Link href={link} passHref>
                             <a>
                                 <Label

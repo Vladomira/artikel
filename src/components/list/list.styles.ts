@@ -21,6 +21,8 @@ export type ListProps = {
     background?: string;
     overflow?: string;
     boxShadow?: string;
+    width?: string;
+    zIndex?: number;
 };
 
 export const List = styled.ul<ListProps>`
@@ -37,6 +39,8 @@ export const List = styled.ul<ListProps>`
         alignItems ? `${alignItems}` : ""};
     flex-direction: ${({ direction }): string =>
         direction ? `${direction}` : ""};
+
+    width: ${({ width }) => width || ""};
     margin-top: ${({ marginTop }): string =>
         marginTop ? `${marginTop}px` : ""};
     margin-left: ${({ marginLeft }): string =>
@@ -50,4 +54,5 @@ export const List = styled.ul<ListProps>`
     background: ${({ background }): string => (background ? background : "")};
     box-shdow: ${({ boxShadow }): string => (boxShadow ? boxShadow : "")};
     overflow: ${({ overflow }): string => (overflow ? `${overflow}` : "auto")};
+    z-index: ${({ zIndex }) => (zIndex ? zIndex : "")};
 `;

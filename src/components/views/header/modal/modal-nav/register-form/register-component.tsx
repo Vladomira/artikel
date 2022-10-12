@@ -14,7 +14,12 @@ export const RegisterComponent: FC<FormProps> = ({
 }) => {
     return (
         <WrapperBox alignItems="center" direction="column" position="relative">
-            <CloseButton setIsOpen={setIsOpenModal} top={"0px"} right={"0px"} />
+            <CloseButton
+                setIsOpen={setIsOpenModal}
+                position="absolute"
+                top={"0px"}
+                right={"0px"}
+            />
             <RegisterForm />
             <IsAccauntBox
                 text={"Al een account?"}

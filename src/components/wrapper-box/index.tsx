@@ -21,9 +21,17 @@ export const WrapperBox = ({
     onClick,
     zIndex,
     marginBottom,
+    boxShadow,
+    bottom,
+    borderBottom,
+    minWidth,
+    borderTop,
 }: PropsWithChildren<WrapperBoxProps>) => {
     return (
         <WrapperBoxStyled
+            minWidth={minWidth}
+            borderBottom={borderBottom}
+            boxShadow={boxShadow}
             justifyContent={justifyContent}
             marginTop={marginTop}
             marginLeft={marginLeft}
@@ -38,10 +46,12 @@ export const WrapperBox = ({
             position={position}
             top={top}
             right={right}
+            bottom={bottom}
             left={left}
             onClick={onClick}
             zIndex={zIndex}
             marginBottom={marginBottom}
+            borderTop={borderTop}
         >
             {children}
         </WrapperBoxStyled>

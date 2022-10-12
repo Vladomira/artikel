@@ -16,7 +16,7 @@ export const HotThemItem = styled(ListItem)`
             border-radius: 50%;
             margin-right: 8px;
             left: -10px;
-            top: 11px;
+            top: 9px;
 
             background: ${Colors.ORANGE};
         }

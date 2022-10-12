@@ -1,6 +1,4 @@
 import React from "react";
-import { Container } from "../../container/container.styled";
-
 import { WrapperBox } from "../../wrapper-box";
 import { Navigation } from "./navigation-list";
 import { SocialLinks } from "../../social-links";
@@ -10,46 +8,54 @@ import { BoxWithImg } from "../../wrapper-box/box-with-img";
 import { LogoBox } from "./logo-box";
 import { ChapterNavigation } from "./chapter-navigation";
 import { StyledHeader } from "./header.styles";
+import { Container } from "../../container/container";
+import { Colors } from "../../../utils/colors";
 
 export const Header = () => {
     return (
         <StyledHeader>
             <WrapperBox
-                top={"0px"}
                 width="100%"
-                position="fixed"
-                direction="column"
+                background={Colors.BLACK}
+                direction="row"
+                justifyContent="center"
+                position="relative"
+                height={32}
             >
                 <BoxWithImg
                     position={"relative"}
-                    top={"0px"}
-                    height={32}
                     backImg={"url(/images/header/back.png)"}
                     padding={"5px 0px"}
+                    width="100%"
+                    alignItems="center"
+                    maxWidth={1160}
+                    background={Colors.BLACK}
+                    justifyContent="end"
                 >
                     <LogoBox />
+                    <WrapperBox
+                        padding="0px 16px"
+                        mediaHidden={MediaScreen.MOBILE}
+                    >
+                        <SocialLinks
+                            imgSize={13}
+                            marginRightNotLast={16}
+                            listMarginRight={32}
+                            itemPadding="0px 1px"
+                            itemSize={13}
+                        />
+                        <Navigation />
+                    </WrapperBox>
 
-                    <Container>
-                        <WrapperBox
-                            justifyContent="end"
-                            alignItems="center"
-                            mediaHidden={MediaScreen.MOBILE}
-                        >
-                            <SocialLinks
-                                imgSize={13}
-                                marginRightNotLast={16}
-                                listMarginRight={32}
-                                itemPadding="0px 1px"
-                                itemSize={13}
-                            />
-
-                            <Navigation />
-                        </WrapperBox>
-
-                        <MobileHeader />
-                    </Container>
+                    <MobileHeader />
                 </BoxWithImg>
+            </WrapperBox>
 
+            <WrapperBox
+                width="100%"
+                alignItems="center"
+                justifyContent="center"
+            >
                 <ChapterNavigation />
             </WrapperBox>
         </StyledHeader>

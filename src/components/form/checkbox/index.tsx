@@ -17,7 +17,7 @@ export const CheckboxComponent = ({
 
     return (
         <WrapperBox
-            justifyContent={text && "space-between"}
+            justifyContent={text ? "space-between" : ""}
             marginTop={marginTop}
         >
             <WrapperBox alignItems="center">

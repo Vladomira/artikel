@@ -15,7 +15,12 @@ export const LoginComponent: FC<LoginComponentprops> = ({
     setIsOpenModal,
 }) => (
     <WrapperBox direction="column" position="relative">
-        <CloseButton setIsOpen={setIsOpenModal} top={"0px"} right={"0px"} />
+        <CloseButton
+            position="absolute"
+            setIsOpen={setIsOpenModal}
+            top={"0px"}
+            right={"0px"}
+        />
         <LoginForm />
         <IsAccauntBox
             text={"Nog geen account?"}

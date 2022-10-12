@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+type JustifyContent =
+    | "center"
+    | "end"
+    | "space-between"
+    | "space-around"
+    | "start";
 export type WrapperBoxProps = {
     marginTop?: number;
     marginLeft?: number;
@@ -7,7 +13,8 @@ export type WrapperBoxProps = {
     margin?: string;
     padding?: string;
     direction?: string;
-    justifyContent?: string;
+    justifyContent?: JustifyContent | string;
+
     alignItems?: string;
     width?: string;
     background?: string;
@@ -20,6 +27,11 @@ export type WrapperBoxProps = {
     left?: string;
     onClick?: () => void;
     zIndex?: number;
+    boxShadow?: string;
+    borderBottom?: string;
+    bottom?: string;
+    minWidth?: string;
+    borderTop?: string;
 };
 
 export const WrapperBoxStyled = styled.div<WrapperBoxProps>`
@@ -31,6 +43,7 @@ export const WrapperBoxStyled = styled.div<WrapperBoxProps>`
     `}
     position:${({ position }): string => position || ""};
     top: ${({ top }): string => top || ""};
+    bottom: ${({ bottom }): string => (bottom ? bottom : "")};
     right: ${({ right }): string => right || ""};
     left: ${({ left }): string => left || ""};
 
@@ -43,6 +56,7 @@ export const WrapperBoxStyled = styled.div<WrapperBoxProps>`
     padding: ${({ padding }): string => (padding ? padding : "")};
 
     width: ${({ width }): string => (width ? width : "")};
+    min-width: ${({ minWidth }): string => minWidth || ""};
     max-width: ${({ maxWidth }): string => (maxWidth ? `${maxWidth}px` : "")};
     height: ${({ height }): string => (height ? `${height}px` : "")};
 
@@ -52,8 +66,11 @@ export const WrapperBoxStyled = styled.div<WrapperBoxProps>`
         marginLeft ? `${marginLeft}px` : ""};
     margin-bottom: ${({ marginBottom }): string =>
         marginBottom ? `${marginBottom}px` : ""};
-    margin: ${({ margin }): string => (margin ? margin : "")};
+    border-bottom: ${({ borderBottom }): string =>
+        borderBottom ? borderBottom : ""};
+    border-top: ${({ borderTop }): string => (borderTop ? borderTop : "")};
 
     background: ${({ background }) => (background ? background : "")};
+    box-shadow: ${({ boxShadow }) => (boxShadow ? boxShadow : "")};
     z-index: ${({ zIndex }) => (zIndex ? zIndex : "")};
 `;
