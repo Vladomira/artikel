@@ -22,9 +22,10 @@ type ListItemProps = {
     radius?: string;
     borderBottom?: string;
     onClick?: (prop: boolean) => void;
+    hoverColor?: string;
+    cursor?: string;
 };
 export const ListItem = styled.li<ListItemProps>`
-
     display: flex;
     position: ${({ position }): string => (position ? position : "")};
     align-items: ${({ alignItems }): string =>
@@ -51,7 +52,12 @@ export const ListItem = styled.li<ListItemProps>`
         border-radius:${({ radius }): string => radius || ""}}
     box-shadow: ${({ boxShadow }): string => (boxShadow ? boxShadow : "")};
     transition: all 200ms cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    cursor: ${({ cursor }): string => (cursor ? cursor : "")};
 
+    &:hover {
+        color: ${({ hoverColor }): string => hoverColor || ""};
+    }
+    
     &:not(:last-child) {
         margin-right: ${({ marginRightNotLast }): string =>
             marginRightNotLast ? `${marginRightNotLast}px` : ""};
@@ -61,20 +67,17 @@ export const ListItem = styled.li<ListItemProps>`
             marginBottomNotLast ? `${marginBottomNotLast}px` : ""};
     }
 `;
+
 export const ListItemDecorated = styled(ListItem)`
 
     &:before {
             content: '';
             display: block;
             right: 16px;
-            margin-right: 16px;
-            
-         
-        
+            margin-right: 16px;        
             background: ${Colors.GREY};
             width: 1px;
             height 14px;
         }
-
     
 } `;

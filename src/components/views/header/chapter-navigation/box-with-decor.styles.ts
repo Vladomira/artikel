@@ -5,6 +5,9 @@ import { WrapperBoxStyled } from "../../../wrapper-box/wrapper.styles";
 export const BoxWithDecoration = styled(WrapperBoxStyled)`
     display: flex;
     align-items: center;
+    @media (max-width: 990px) {
+        display: none;
+    }
 
     &:before {
         content: "";

@@ -17,6 +17,7 @@ export const MobileHeader = () => {
             mediaHidden={MediaScreen.DESKTOP}
             justifyContent="end"
             alignItems="center"
+            padding="0px 16px"
         >
             <WrapperBox alignItems="center" justifyContent="center">
                 <SearchIcon

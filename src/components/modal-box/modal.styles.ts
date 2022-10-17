@@ -33,7 +33,7 @@ export const StyledModal = styled.div<StyledModalProps>`
     padding: ${({ padding }): string => padding || ""};
     background-color: ${Colors.BLACK};
 
-    z-index: 1200;
+    z-index: 3200;
 
     ${({ mediaHidden }) =>
         mediaHidden &&

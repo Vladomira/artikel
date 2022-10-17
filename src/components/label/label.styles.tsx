@@ -28,6 +28,7 @@ export type LabelStyledProps = {
     hoverColor?: string;
     width?: "max-content";
     cursor?: string;
+    whiteSpace?: "nowrap";
 };
 
 export const StyledLabel = styled.span<LabelStyledProps>`
@@ -54,6 +55,7 @@ export const StyledLabel = styled.span<LabelStyledProps>`
     text-decoration: ${({ textDecoration = "none" }): string =>
         `${textDecoration}`};
     text-transform: ${({ textTransform }): string => textTransform || "unset"};
+    white-space: ${({ whiteSpace }): string => (whiteSpace ? whiteSpace : "")};
     background-color: ${({ backGround }): string => backGround || ""};
 
     opacity: ${({ opacity }): string => (opacity ? opacity : "")};
