@@ -2,7 +2,7 @@ import { FC } from "react";
 import { BestArticlesSection } from "./beste-articles";
 import { TopicSection } from "./topic-section";
 import { ChapterInfo } from "../../../../../../context/chapters-context";
-import { ChapterInfoBox } from "./chapter-info-box.styles";
+import { WrapperBox } from "../../../../../wrapper-box";
 
 export type ChapterInfoBoxProps = {
     topics: string[];
@@ -17,10 +17,10 @@ export const ChapterInfoComponent: FC<ChapterInfoBoxProps> = ({
     bigChapter,
 }) => {
     return (
-        <ChapterInfoBox
+        <WrapperBox
             direction="column"
-            width="100%"
             maxWidth={886}
+            width="100%"
             padding="24px 0px 0px 35px"
         >
             <TopicSection chapter={chapter} topics={topics} />
@@ -29,6 +29,6 @@ export const ChapterInfoComponent: FC<ChapterInfoBoxProps> = ({
                 best_of_chapter={best_of_chapter}
                 bigChapter={bigChapter}
             />
-        </ChapterInfoBox>
+        </WrapperBox>
     );
 };

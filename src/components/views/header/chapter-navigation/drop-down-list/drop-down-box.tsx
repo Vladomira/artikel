@@ -6,30 +6,28 @@ import { SearchInputHeader } from "../search-input";
 import { HotThems } from "../hot-thems";
 
 type DropDownBoxprops = {
-    setIsOpen: (prop: boolean) => void;
-    isOpen: boolean;
+    setIsOpenSearch: (prop: boolean) => void;
+    isOpenSearch: boolean;
 };
-export const DropDownBox: FC<DropDownBoxprops> = ({ isOpen, setIsOpen }) => {
-    const [isOpenInfo, setIsOpenInfo] = useState(false);
-
+export const DropDownBox: FC<DropDownBoxprops> = ({
+    isOpenSearch,
+    setIsOpenSearch,
+}) => {
     return (
-        <WrapperBox alignItems="center" justifyContent="start">
-            <SelectComponent
-                isOpenInfo={isOpenInfo}
-                setIsOpenInfo={setIsOpenInfo}
-            />
+        <WrapperBox alignItems="center" width="100%" justifyContent="start">
+            <SelectComponent />
 
-            {!isOpen && !isOpenInfo && (
-                <BoxWithDecoration
-                    alignItems="baseline"
-                    marginLeft={30}
-                    width="100%"
-                >
-                    {!isOpen && <HotThems />}
-
-                    {isOpen && <SearchInputHeader setIsOpen={setIsOpen} />}
-                </BoxWithDecoration>
-            )}
+            <BoxWithDecoration
+                alignItems="baseline"
+                marginLeft={30}
+                width={isOpenSearch ? "100%" : ""}
+                justifyContent="start"
+            >
+                {!isOpenSearch && <HotThems />}
+                {isOpenSearch && (
+                    <SearchInputHeader setIsOpen={setIsOpenSearch} />
+                )}
+            </BoxWithDecoration>
         </WrapperBox>
     );
 };

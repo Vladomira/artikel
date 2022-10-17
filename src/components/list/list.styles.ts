@@ -23,6 +23,7 @@ export type ListProps = {
     boxShadow?: string;
     width?: string;
     zIndex?: number;
+    minWidth?: string;
 };
 
 export const List = styled.ul<ListProps>`
@@ -40,7 +41,8 @@ export const List = styled.ul<ListProps>`
     flex-direction: ${({ direction }): string =>
         direction ? `${direction}` : ""};
 
-    width: ${({ width }) => width || ""};
+    width: ${({ width }): string => width || ""};
+    min-width: ${({ minWidth }): string => minWidth || ""};
     margin-top: ${({ marginTop }): string =>
         marginTop ? `${marginTop}px` : ""};
     margin-left: ${({ marginLeft }): string =>

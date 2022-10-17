@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import { WrapperBox } from "../../wrapper-box";
 import { Navigation } from "./navigation-list";
 import { SocialLinks } from "../../social-links";
@@ -8,12 +8,25 @@ import { BoxWithImg } from "../../wrapper-box/box-with-img";
 import { LogoBox } from "./logo-box";
 import { ChapterNavigation } from "./chapter-navigation";
 import { StyledHeader } from "./header.styles";
-import { Container } from "../../container/container";
 import { Colors } from "../../../utils/colors";
+import { HotThems } from "./chapter-navigation/hot-thems";
 
 export const Header = () => {
+    const [isScroll, setIsScroll] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = (event) => {
+            setIsScroll(true);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
     return (
-        <StyledHeader>
+        <StyledHeader
+            boxShadow={isScroll && "1px 1px 8px 1px rgb(0 0 0 / 10%)"}
+        >
             <WrapperBox
                 width="100%"
                 background={Colors.BLACK}
@@ -58,6 +71,7 @@ export const Header = () => {
             >
                 <ChapterNavigation />
             </WrapperBox>
+            <HotThems mediaHidden={MediaScreen.DESKTOP} />
         </StyledHeader>
     );
 };

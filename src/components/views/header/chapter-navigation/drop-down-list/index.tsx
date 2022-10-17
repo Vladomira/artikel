@@ -10,28 +10,17 @@ enum SlectArrow {
     UP = "select-up",
 }
 
-type SelectComponentProps = {
-    isOpenInfo: boolean;
-    setIsOpenInfo: (prop: boolean) => void;
-};
-export const SelectComponent: FC<SelectComponentProps> = ({
-    isOpenInfo,
-    setIsOpenInfo,
-}) => {
+export const SelectComponent: FC = () => {
     const [selectedLabel, setSelectedLabel] = useState("Ontdek je passie");
-    const [isCkicked, setisClicked] = useState(false);
+    const [isCkicked, setIsClicked] = useState(false);
 
     return (
-        <WrapperBox
-            onClick={() => (setisClicked(!isCkicked), setIsOpenInfo(false))}
-            position="relative"
-            padding="0px 0px 0px 10px"
-            width={"100%"}
-        >
+        <WrapperBox position="relative" padding="0px 0px 0px 10px">
             <WrapperBox
                 zIndex={3001}
                 justifyContent="start"
                 position="relative"
+                onClick={() => setIsClicked(!isCkicked)}
             >
                 <Label
                     color={isCkicked ? Colors.GREY_VARIANT : Colors.BLACK}
@@ -45,20 +34,17 @@ export const SelectComponent: FC<SelectComponentProps> = ({
                     cursor="pointer"
                     whiteSpace="nowrap"
                 />
-                <Icon
-                    imgName={isCkicked ? SlectArrow.UP : SlectArrow.DOWN}
-                    format="svg"
-                    folder="tech-icons"
-                    width={20}
-                    height={20}
-                />
+                <WrapperBox position="absolute" top="1px" right="-20px">
+                    <Icon
+                        imgName={isCkicked ? SlectArrow.UP : SlectArrow.DOWN}
+                        format="svg"
+                        folder="tech-icons"
+                        width={20}
+                        height={20}
+                    />
+                </WrapperBox>
             </WrapperBox>
-            {isCkicked && (
-                <DropDownChapters
-                    isOpen={isOpenInfo}
-                    setIsOpen={setIsOpenInfo}
-                />
-            )}
+            {isCkicked && <DropDownChapters setIsClicked={setIsClicked} />}
         </WrapperBox>
     );
 };

@@ -6,22 +6,23 @@ import {
 } from "../../../../../context/chapters-context";
 import { Colors } from "../../../../../utils/colors";
 import { MediaScreen } from "../../../../../utils/media";
+import { CloseButton } from "../../../../close-button";
 import { WrapperBox } from "../../../../wrapper-box";
 import { ChapterInfoComponent } from "./chapter-info-box/chapter-info-box";
 import { ChaptersList } from "./chapter-info-box/chapters-list";
-import { MobileChapters } from "./chapter-info-box/mobile-info/chapters-list";
+import { MobileChapters } from "./chapter-info-box/mobile-view/mobile-view-chapters";
 
 export type DropDownProps = {
-    isOpen: boolean;
-    setIsOpen: (prop: boolean) => void;
+    setIsClicked: (prop: boolean) => void;
 };
-export const DropDownChapters: FC<DropDownProps> = ({ isOpen, setIsOpen }) => {
+export const DropDownChapters: FC<DropDownProps> = ({ setIsClicked }) => {
     const { chapters, getChapters } = useContext(ChapterContext);
     const [chaptersData, setChaptersData] = useState<ChapterItem[]>([]);
     const [activeChapter, setActiveChapter] = useState("");
     const [topics, setTopics] = useState<string[]>([""]);
     const [bestOfChapters, setBestOfChapters] = useState<ChapterInfo[]>([]);
     const [bigChapter, setBigChapter] = useState<ChapterInfo>();
+    const [isOpenInfo, setIsOpenInfo] = useState(false);
 
     useEffect(() => {
         fetchChapter();
@@ -46,26 +47,43 @@ export const DropDownChapters: FC<DropDownProps> = ({ isOpen, setIsOpen }) => {
             <WrapperBox
                 zIndex={3000}
                 position="absolute"
-                top="-10px"
+                top="-20px"
                 left="0px"
-                padding={"50px 10px 0px 10px"}
+                direction="column"
+                padding={"10px 10px 0px 10px"}
                 boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
                 background={Colors.WHITE}
                 mediaHidden={MediaScreen.MOBILE}
+                minWidth={"180px"}
+                maxWidth={1066}
+                marginTop={10}
             >
+                {isOpenInfo && (
+                    <WrapperBox justifyContent="end">
+                        <CloseButton
+                            setIsOpen={setIsClicked}
+                            color="currentColor"
+                            width={20}
+                            height={20}
+                            colorWrapper={Colors.ORANGE}
+                            hoverColor={Colors.LABEL_GREY}
+                        />
+                    </WrapperBox>
+                )}
                 <WrapperBox
-                    borderTop={isOpen && `1px solid ${Colors.GREY_VARIANT}`}
+                    marginTop={isOpenInfo ? 10 : 33}
+                    borderTop={isOpenInfo && `1px solid ${Colors.GREY_VARIANT}`}
                 >
                     <ChaptersList
                         chapters={chapters}
-                        setIsOpen={setIsOpen}
+                        setIsOpen={setIsOpenInfo}
                         setActiveChapter={setActiveChapter}
                         setTopics={setTopics}
-                        isOpen={isOpen}
+                        isOpen={isOpenInfo}
                         setBestChapters={setBestOfChapters}
                         setBigChapter={setBigChapter}
                     />
-                    {isOpen && (
+                    {isOpenInfo && (
                         <ChapterInfoComponent
                             topics={topics}
                             chapter={activeChapter}
@@ -75,11 +93,8 @@ export const DropDownChapters: FC<DropDownProps> = ({ isOpen, setIsOpen }) => {
                     )}
                 </WrapperBox>
             </WrapperBox>
-            <MobileChapters
-                topics={topics}
-                chapters={chapters}
-                setIsOpen={setIsOpen}
-            />
+
+            <MobileChapters chapters={chapters} setIsOpen={setIsClicked} />
         </>
     );
 };

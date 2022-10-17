@@ -10,7 +10,7 @@ type TopicListProps = {
 
 export const TopicSection: FC<TopicListProps> = ({ topics, chapter }) => {
     return (
-        <Section paddingTop={0} paddingBottom={40} minWidth="535px">
+        <Section paddingTop={0} paddingBottom={40} width="100%">
             <ChapterInfoHeader header={`Topics VOOR ${chapter}`} />
             <TopicList topics={topics} />
         </Section>

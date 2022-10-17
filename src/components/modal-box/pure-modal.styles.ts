@@ -7,12 +7,14 @@ export type StyledModalProps = {
     paddingLeft?: string;
     paddingRight?: string;
     mediaHidden?: string;
+    direction?: string;
 };
 
 export const PureModalStyled = styled.div<StyledModalProps>`
     position: fixed;
     display: flex;
-    // justify-content: center;
+    flex-direction: ${({ direction }): string => direction || ""};
+
     top: 0;
     left: 0;
     width: 100vw;

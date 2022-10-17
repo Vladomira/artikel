@@ -9,7 +9,7 @@ type Props = {
     link?: string;
     folder?: string;
     color?: string;
-    format?: string;
+    format: string;
     target?: string;
 };
 

@@ -21,10 +21,10 @@ export const BestArticlesSection: FC<BestArticlesProps> = ({
         <Section
             paddingTop={0}
             paddingBottom={0}
-            minWidth="535px"
+            // minWidth="535px"
             minHeight="350px"
         >
-            <ChapterInfoHeader header={`TBeste ${chapter} artikelen`} />
+            <ChapterInfoHeader header={`Beste ${chapter} artikelen`} />
             <WrapperBox
                 width="100%"
                 justifyContent={!best_of_chapter ? "end" : ""}

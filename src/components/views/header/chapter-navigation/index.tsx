@@ -4,7 +4,8 @@ import { ToActBox } from "./to-act-section";
 import { DropDownBox } from "./drop-down-list/drop-down-box";
 
 export const ChapterNavigation: FC = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpenSearch, setIsOpenSearch] = useState(false);
+
     return (
         <WrapperBox
             height={60}
@@ -17,9 +18,15 @@ export const ChapterNavigation: FC = () => {
                 alignItems="center"
                 justifyContent="space-between"
             >
-                <DropDownBox setIsOpen={setIsOpen} isOpen={isOpen} />
+                <DropDownBox
+                    setIsOpenSearch={setIsOpenSearch}
+                    isOpenSearch={isOpenSearch}
+                />
 
-                <ToActBox isVisible={isOpen} setIsOpen={setIsOpen} />
+                <ToActBox
+                    isVisible={isOpenSearch}
+                    setIsOpen={setIsOpenSearch}
+                />
             </WrapperBox>
         </WrapperBox>
     );

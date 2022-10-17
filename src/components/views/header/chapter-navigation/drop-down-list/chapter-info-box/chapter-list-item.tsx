@@ -28,6 +28,7 @@ export const ChaptersListItem: FC<ChaptersItemProps> = ({
                 setBigChapter(el.bigChapter));
         });
     };
+
     return (
         <ListItemChapterStyled
             key={chapter}

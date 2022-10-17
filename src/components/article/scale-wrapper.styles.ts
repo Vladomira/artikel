@@ -15,7 +15,6 @@ export const ScaleWrapper = styled(WrapperBoxStyled)`
 `;
 
 export const ScaleLink = styled.a`
-    width: 356px;
     display: inline-block;
     margin-bottom: 15px;
 

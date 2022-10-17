@@ -13,7 +13,7 @@ export const BestArticlesList: FC<TopicListProps> = ({
     chapter,
 }) => {
     return (
-        <List overflow="unset" width={!best_of_chapter ? "355px" : ""}>
+        <List overflow="unset" minWidth={!best_of_chapter ? "355px" : ""}>
             {best_of_chapter &&
                 best_of_chapter.map(
                     ({ topic, title, author, id, data, time_reading }) => (

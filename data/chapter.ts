@@ -1,6 +1,6 @@
 export const chapters = [
     {
-        chapter: "Culture",
+        chapter: "Cultuur",
         topics: [
             "Fictie",
             "Fotographie",
