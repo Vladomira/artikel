@@ -12,6 +12,17 @@ import { ChapterInfoComponent } from "./chapter-info-box/chapter-info-box";
 import { ChaptersList } from "./chapter-info-box/chapters-list";
 import { MobileChapters } from "./chapter-info-box/mobile-view/mobile-view-chapters";
 
+export const initialBigArticle: ChapterInfo = {
+    topic: "",
+    title: "",
+    author: "",
+    id: 0,
+    data: "",
+    time_reading: 0,
+    liked: 0,
+    img: "",
+    views: 0,
+};
 export type DropDownProps = {
     setIsClicked: (prop: boolean) => void;
 };
@@ -21,15 +32,17 @@ export const DropDownChapters: FC<DropDownProps> = ({ setIsClicked }) => {
     const [activeChapter, setActiveChapter] = useState("");
     const [topics, setTopics] = useState<string[]>([""]);
     const [bestOfChapters, setBestOfChapters] = useState<ChapterInfo[]>([]);
-    const [bigChapter, setBigChapter] = useState<ChapterInfo>();
+    const [bigChapter, setBigChapter] =
+        useState<ChapterInfo>(initialBigArticle);
     const [isOpenInfo, setIsOpenInfo] = useState(false);
 
     useEffect(() => {
         fetchChapter();
     }, []);
     useEffect(() => {
-        return getChapters(chaptersData);
-    });
+        getChapters(chaptersData);
+    }, [chaptersData]);
+
     const fetchChapter = async () => {
         try {
             // const response = await fetch(`${process.env.DB_HOST}/chapters/`);  need to change

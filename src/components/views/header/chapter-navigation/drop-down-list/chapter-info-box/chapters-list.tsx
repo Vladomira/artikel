@@ -11,8 +11,8 @@ export type ChaptersProps = ChapterListProps & {
     setActiveChapter: (prop: string) => void;
     setIsOpen: (prop: boolean) => void;
     setTopics: (props: string[]) => void;
-    setBestChapters: (props: ChapterInfo[]) => void;
     setBigChapter: (props: ChapterInfo) => void;
+    setBestChapters: (props: ChapterInfo[]) => void;
     isOpen: boolean;
 };
 

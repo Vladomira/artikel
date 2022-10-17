@@ -11,12 +11,12 @@ export type ChapterInfo = {
     img: string;
     imgFolder?: string;
     format?: string;
+    views: number;
 };
 export type ChapterItem = {
     chapter: string;
     topics: string[];
     best_of_chapter?: ChapterInfo[];
-    bigChapter?: ChapterInfo;
 };
 export type ChapterListProps = {
     chapters: ChapterItem[];
