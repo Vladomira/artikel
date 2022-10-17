@@ -21,7 +21,7 @@ export const ArticleWithImg: FC<ChapterWithImgProps> = ({
             padding="0px 85px 0px 0px"
             minWidth="441px"
         >
-            {bigChapter?.img && (
+            {bigChapter.img.length !== 0 && (
                 <Link href="" passHref>
                     <ScaleLink>
                         <ScaleWrapper>
@@ -36,7 +36,7 @@ export const ArticleWithImg: FC<ChapterWithImgProps> = ({
                     </ScaleLink>
                 </Link>
             )}
-            {bigChapter && (
+            {bigChapter.img.length !== 0 && (
                 <ArticleInfo
                     chapterName={chapter}
                     data={bigChapter.data}

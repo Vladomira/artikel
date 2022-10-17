@@ -16,9 +16,9 @@ export const BestArticlesList: FC<TopicListProps> = ({
         <List overflow="unset" minWidth={!best_of_chapter ? "355px" : ""}>
             {best_of_chapter &&
                 best_of_chapter.map(
-                    ({ topic, title, author, id, data, time_reading }) => (
+                    ({ topic, title, author, id, data, time_reading }, idx) => (
                         <BestArticlesItem
-                            key={id}
+                            key={idx}
                             topic={topic}
                             title={title}
                             author={author}

@@ -1,22 +1,29 @@
+import { FC, useEffect, useState } from "react";
 import Link from "next/link";
-import { FC } from "react";
+import { hotThemsItems } from "../../../../../utils/arrays/hot-thems";
 import { Colors } from "../../../../../utils/colors";
 import { Label } from "../../../../label";
 import { List } from "../../../../list";
 import { WrapperBox } from "../../../../wrapper-box";
 import { HotThemItem } from "./hot-them-item.styles";
 
-const hotThemsItems = [
-    { name: "Poëzie", link: "/" },
-    { name: "Familie", link: "/" },
-    { name: "Geestelijk", link: "/" },
-    { name: "Samenleving", link: "/" },
-];
-
 type HotThemsProps = {
     mediaHidden?: string;
 };
 export const HotThems: FC<HotThemsProps> = ({ mediaHidden }) => {
+    const [thems, setThems] = useState(hotThemsItems.slice(0, 3));
+    const [data, setData] = useState(new Date().getMinutes());
+
+    useEffect(() => {
+        const randomNumber = randomPoint(1, hotThemsItems.length);
+        randomNumber !== 11
+            ? setThems(hotThemsItems.slice(randomNumber, randomNumber + 3))
+            : setThems(hotThemsItems.slice(randomNumber));
+    }, [data]);
+
+    const randomPoint = (min: number, max: number) =>
+        Math.floor(Math.random() * (max - min + 1) + min);
+
     return (
         <WrapperBox
             mediaHidden={mediaHidden}
@@ -35,7 +42,7 @@ export const HotThems: FC<HotThemsProps> = ({ mediaHidden }) => {
                 whiteSpace="nowrap"
             />
             <List display="flex" overflow="unset">
-                {hotThemsItems.map(({ name, link }) => (
+                {thems.map(({ name, link }) => (
                     <HotThemItem
                         key={name}
                         marginRightNotLast={16}

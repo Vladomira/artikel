@@ -7,10 +7,10 @@ export type ChapterInfo = {
     time_reading: number;
     liked: number;
     img: string;
+    views: number;
 };
 export type ChapterList = {
     chapter: string;
     topics: string[];
     best_of_chapter: ChapterInfo[];
-    bigChapter?: ChapterInfo;
 };
