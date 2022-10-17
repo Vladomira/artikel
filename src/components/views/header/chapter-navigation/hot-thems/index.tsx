@@ -7,19 +7,24 @@ import { List } from "../../../../list";
 import { WrapperBox } from "../../../../wrapper-box";
 import { HotThemItem } from "./hot-them-item.styles";
 
+type ThemsType = {
+    name: string;
+    link: string;
+};
 type HotThemsProps = {
     mediaHidden?: string;
 };
+
 export const HotThems: FC<HotThemsProps> = ({ mediaHidden }) => {
-    const [thems, setThems] = useState(hotThemsItems.slice(0, 3));
-    const [data, setData] = useState(new Date().getMinutes());
+    const [thems, setThems] = useState<ThemsType[]>([]);
+    const today = new Date().getUTCHours();
 
     useEffect(() => {
         const randomNumber = randomPoint(1, hotThemsItems.length);
         randomNumber !== 11
             ? setThems(hotThemsItems.slice(randomNumber, randomNumber + 3))
             : setThems(hotThemsItems.slice(randomNumber));
-    }, [data]);
+    }, [today]);
 
     const randomPoint = (min: number, max: number) =>
         Math.floor(Math.random() * (max - min + 1) + min);
