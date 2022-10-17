@@ -1,7 +1,9 @@
 import { FC } from "react";
 import { ChapterInfo } from "../../../../../../context/chapters-context";
 import { Colors } from "../../../../../../utils/colors";
+import { getBest } from "../../../../../../utils/helpers/sort-articles";
 import { Label } from "../../../../../label";
+import { initialBigArticle } from "../drop-down-chapters";
 import { ListItemChapterStyled } from "../list-chapter.styles";
 import { ChaptersProps } from "./chapters-list";
 
@@ -16,28 +18,37 @@ export const ChaptersListItem: FC<ChaptersItemProps> = ({
     setTopics,
     isOpen,
     setBestChapters,
-    setBigChapter,
     chapter,
+    setBigChapter,
 }) => {
-    // const getBestArticles = (data: ChapterInfo[]) =>
-    //     data.sort((a, b) => b.views - a.views);
+    const articlesSwitcher = (data: ChapterInfo[]) => {
+        const articles = getBest(data);
 
-    // const getGratest = (data: ChapterInfo[]) => {
-    //     return data.reduce((prev, next): ChapterInfo => {
-    //         return prev.views > next.views
-    //             ? setBigChapter(prev)
-    //             : setBigChapter(next);
-    //     });
-    // };
+        if (!articles) {
+            setBigChapter(initialBigArticle);
+            setBestChapters([initialBigArticle]);
+        }
+        if (articles?.length === 1) {
+            setBigChapter(articles[0]);
+        }
+
+        if (articles?.length > 3) {
+            setBestChapters(articles.slice(1, 4));
+            setBigChapter(articles[0]);
+        }
+        if (articles?.length > 1) {
+            setBestChapters(articles.slice(1, 4));
+            setBigChapter(articles[0]);
+        }
+    };
+
     const onMouseHandler = (chapter: string) => {
         setActiveChapter(chapter);
         setIsOpen(true);
 
         chapters.find((el) => {
             el.chapter === chapter &&
-                (setTopics(el.topics),
-                setBestChapters(el.best_of_chapter),
-                setBigChapter(el.bigChapter));
+                (setTopics(el.topics), articlesSwitcher(el.best_of_chapter));
         });
     };
 

@@ -33,6 +33,7 @@ export const BestArticlesSection: FC<BestArticlesProps> = ({
                     best_of_chapter={best_of_chapter}
                     chapter={chapter}
                 />
+
                 <ArticleWithImg bigChapter={bigChapter} chapter={chapter} />
             </WrapperBox>
         </Section>

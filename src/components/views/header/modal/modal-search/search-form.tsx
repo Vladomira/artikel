@@ -10,7 +10,6 @@ export const SearchForm: FC = () => {
 
     const handleOnSubmit = (event: SyntheticEvent) => {
         event.preventDefault();
-        console.log(value);
     };
 
     return (
