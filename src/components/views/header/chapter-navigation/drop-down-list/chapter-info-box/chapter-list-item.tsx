@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { ChapterInfo } from "../../../../../../context/chapters-context";
 import { Colors } from "../../../../../../utils/colors";
 import { Label } from "../../../../../label";
 import { ListItemChapterStyled } from "../list-chapter.styles";
@@ -18,9 +19,20 @@ export const ChaptersListItem: FC<ChaptersItemProps> = ({
     setBigChapter,
     chapter,
 }) => {
+    // const getBestArticles = (data: ChapterInfo[]) =>
+    //     data.sort((a, b) => b.views - a.views);
+
+    // const getGratest = (data: ChapterInfo[]) => {
+    //     return data.reduce((prev, next): ChapterInfo => {
+    //         return prev.views > next.views
+    //             ? setBigChapter(prev)
+    //             : setBigChapter(next);
+    //     });
+    // };
     const onMouseHandler = (chapter: string) => {
         setActiveChapter(chapter);
         setIsOpen(true);
+
         chapters.find((el) => {
             el.chapter === chapter &&
                 (setTopics(el.topics),

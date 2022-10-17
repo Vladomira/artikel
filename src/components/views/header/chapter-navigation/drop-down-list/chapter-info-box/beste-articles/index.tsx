@@ -21,7 +21,7 @@ export const BestArticlesSection: FC<BestArticlesProps> = ({
         <Section
             paddingTop={0}
             paddingBottom={0}
-            // minWidth="535px"
+            minWidth="535px"
             minHeight="350px"
         >
             <ChapterInfoHeader header={`Beste ${chapter} artikelen`} />
