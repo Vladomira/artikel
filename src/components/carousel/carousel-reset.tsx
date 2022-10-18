@@ -55,7 +55,7 @@ const CarouselReset = ({
     const slider = useRef(null);
 
     return (
-        <CarouselOuterWrapper IsDots={isDots} noBottomOffset={noBottomOffset}>
+        <CarouselOuterWrapper>
             <ButtonToSlide
                 onHandleClick={() => slider.current.prev()}
                 left="0px"

@@ -1,26 +1,10 @@
 import styled from "styled-components";
-import { Button, Carousel } from "antd";
+import { Carousel } from "antd";
 import { DotStyle } from "./carousel-reset";
 import { Colors } from "../../utils/colors";
 import { ButtonStyled } from "../button/button.styles";
 
-const getBottomOffset = (
-    isDots: boolean | undefined,
-    noBottomOffset: boolean | undefined
-): string => {
-    if (isDots) {
-        if (noBottomOffset) {
-            return "0";
-        }
-        return "13px";
-    }
-    return "0";
-};
-
-export const CarouselOuterWrapper = styled.div<{
-    IsDots?: boolean;
-    noBottomOffset?: boolean;
-}>`
+export const CarouselOuterWrapper = styled.div`
     position: relative;
     width: 100%;
 `;
@@ -125,15 +109,3 @@ export const ButtonToSlideStyled = styled(ButtonStyled)`
     top: 50%;
     z-index: 200;
 `;
-// .slick-dots-bottom {
-//     display: flex;
-//     align-items: center;
-//     max-width: 120px;
-//     height: 15px;
-//     position: absolute;
-//     justify-content: end !important;
-//     margin-right: 0px;
-//     margin-left: auto;
-//     top: -35px;
-//     right: 0px !important;
-// }

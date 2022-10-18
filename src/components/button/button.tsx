@@ -1,7 +1,5 @@
-import React, { PropsWithChildren, SyntheticEvent } from "react";
+import React, { PropsWithChildren } from "react";
 import { ButtonStyled } from "./button.styles";
-
-type onClickProps = { onClick: (e: SyntheticEvent) => void };
 
 export type ButtonProps = {
     display?: string;
@@ -27,7 +25,7 @@ export type ButtonProps = {
     background?: string;
     borderRadius?: string;
     type?: "button" | "reset" | "submit";
-    onClick?: () => void | onClickProps;
+    onClick?: () => void;
 };
 export const Button = ({
     border,

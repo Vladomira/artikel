@@ -15,7 +15,6 @@ export const LinkWithDecor = styled.a`
         height: 4px;
         border-radius: 50%;
         margin-right: 8px;
-        // margin-top: 7px;
 
         background: ${Colors.TEXT_GREY};
     }
