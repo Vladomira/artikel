@@ -5,6 +5,7 @@ export const ButtonStyled = styled.button<ButtonProps>`
     position: ${({ position }) => (position ? position : "")};
     top: ${({ top }) => (top ? top : "")};
     right: ${({ right }) => (right ? right : "")};
+    left: ${({ left }) => (left ? left : "")};
 
     display: ${({ display }) => (display ? `${display}` : "flex")};
     flex-direction: ${({ direction }) => (direction ? `${direction}` : "")};

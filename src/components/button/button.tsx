@@ -1,5 +1,7 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, SyntheticEvent } from "react";
 import { ButtonStyled } from "./button.styles";
+
+type onClickProps = { onClick: (e: SyntheticEvent) => void };
 
 export type ButtonProps = {
     display?: string;
@@ -9,6 +11,7 @@ export type ButtonProps = {
     position?: "absolute" | "relative" | "fixed";
     top?: string;
     right?: string;
+    left?: string;
 
     width?: string;
     maxWidth?: number;
@@ -24,7 +27,7 @@ export type ButtonProps = {
     background?: string;
     borderRadius?: string;
     type?: "button" | "reset" | "submit";
-    onClick?: () => void;
+    onClick?: () => void | onClickProps;
 };
 export const Button = ({
     border,
@@ -48,10 +51,12 @@ export const Button = ({
     type,
     position,
     top,
+    left,
     right,
 }: PropsWithChildren<ButtonProps>) => {
     return (
         <ButtonStyled
+            left={left}
             position={position}
             jContent={jContent}
             type={type}

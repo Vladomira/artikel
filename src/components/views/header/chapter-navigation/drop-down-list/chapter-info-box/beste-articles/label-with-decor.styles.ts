@@ -6,6 +6,7 @@ export const LinkWithDecor = styled.a`
     display: flex;
     margin-left: 8px;
     cursor: pointer;
+    align-items: center;
 
     &:before {
         content: "";
@@ -14,7 +15,7 @@ export const LinkWithDecor = styled.a`
         height: 4px;
         border-radius: 50%;
         margin-right: 8px;
-        margin-top: 7px;
+        // margin-top: 7px;
 
         background: ${Colors.TEXT_GREY};
     }
@@ -22,6 +23,7 @@ export const LinkWithDecor = styled.a`
 
 export const LabelDecorated = styled(StyledLabel)`
     display: flex;
+    align-items: center;
 
     &:before {
         content: "";

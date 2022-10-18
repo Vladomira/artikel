@@ -12,7 +12,6 @@ export type ChapterInfo = {
     views: number;
     imgFolder?: string;
     format?: string;
-    views: number;
 };
 export type ChapterItem = {
     chapter: string;
