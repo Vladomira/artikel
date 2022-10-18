@@ -21,7 +21,7 @@ export const ActualArticlesList: FC = () => {
                 <ArtWrapper justifyContent="center">
                     <ArtIconWrapper>
                         <Icon
-                            imgName={"image"}
+                            imgName={"art-banner"}
                             width={972}
                             height={251}
                             folder={"art-section"}
