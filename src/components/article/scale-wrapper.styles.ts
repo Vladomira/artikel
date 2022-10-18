@@ -3,9 +3,7 @@ import { WrapperBoxStyled } from "../wrapper-box/wrapper.styles";
 
 export const ScaleWrapper = styled(WrapperBoxStyled)`
     width: 100%;
-    max-height: 184px;
     transition: transform ease 0.6s;
-    width: 100%;
     transform: scale(1);
 
     &:hover,
@@ -14,8 +12,14 @@ export const ScaleWrapper = styled(WrapperBoxStyled)`
     }
 `;
 
-export const ScaleLink = styled.a`
-    margin-bottom: 15px;
+type StyledLinkProps = {
+    marginBottom?: string;
+    position?: string;
+};
+
+export const ScaleLink = styled.a<StyledLinkProps>`
+    position: ${({ position }): string => position || ""};
+    margin-bottom: ${({ marginBottom }): string => marginBottom || "15px"};
 
     overflow: hidden;
 `;

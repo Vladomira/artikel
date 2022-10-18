@@ -28,7 +28,7 @@ export type LabelStyledProps = {
     hoverColor?: string;
     width?: "max-content";
     cursor?: string;
-    whiteSpace?: "nowrap";
+    whiteSpace?: "nowrap" | "inherit" | string;
 };
 
 export const StyledLabel = styled.span<LabelStyledProps>`

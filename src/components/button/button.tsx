@@ -9,6 +9,7 @@ export type ButtonProps = {
     position?: "absolute" | "relative" | "fixed";
     top?: string;
     right?: string;
+    left?: string;
 
     width?: string;
     maxWidth?: number;
@@ -48,10 +49,12 @@ export const Button = ({
     type,
     position,
     top,
+    left,
     right,
 }: PropsWithChildren<ButtonProps>) => {
     return (
         <ButtonStyled
+            left={left}
             position={position}
             jContent={jContent}
             type={type}

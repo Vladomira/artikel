@@ -9,9 +9,9 @@ export type ChapterInfo = {
     time_reading: number;
     liked: number;
     img: string;
+    views: number;
     imgFolder?: string;
     format?: string;
-    views: number;
 };
 export type ChapterItem = {
     chapter: string;

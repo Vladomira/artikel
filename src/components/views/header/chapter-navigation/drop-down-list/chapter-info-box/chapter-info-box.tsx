@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { BestArticlesSection } from "./beste-articles";
 import { TopicSection } from "./topic-section";
 import { ChapterInfo } from "../../../../../../context/chapters-context";

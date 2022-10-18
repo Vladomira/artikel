@@ -45,7 +45,7 @@ export const DropDownChapters: FC<DropDownProps> = ({ setIsClicked }) => {
 
     const fetchChapter = async () => {
         try {
-            // const response = await fetch(`${process.env.DB_HOST}/chapters/`);  need to change
+            // const response = await fetch(`${process.env.API_HOST}/chapters/`);  need to change
             const response = await fetch("http://localhost:3000/api/chapters");
             const data = await response.json();
 

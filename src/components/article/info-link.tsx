@@ -8,6 +8,9 @@ type InfoLinkProps = {
     hoverColor?: string;
     color: string;
     fontWeight: number;
+    fontSize?: number;
+    lineHeight?: string;
+    whiteSpace?: string;
 };
 export const InfoLink: FC<InfoLinkProps> = ({
     link,
@@ -15,6 +18,9 @@ export const InfoLink: FC<InfoLinkProps> = ({
     hoverColor,
     color,
     fontWeight,
+    fontSize,
+    lineHeight,
+    whiteSpace,
 }) => {
     return (
         <Link href={link}>
@@ -22,11 +28,11 @@ export const InfoLink: FC<InfoLinkProps> = ({
                 <Label
                     hoverColor={hoverColor}
                     color={color}
-                    fontSize={12}
+                    fontSize={fontSize || 12}
                     fontWeight={fontWeight}
-                    lineHeight={"1.4"}
+                    lineHeight={lineHeight || "1.4"}
                     text={labelText}
-                    whiteSpace="nowrap"
+                    whiteSpace={whiteSpace}
                 />
             </a>
         </Link>

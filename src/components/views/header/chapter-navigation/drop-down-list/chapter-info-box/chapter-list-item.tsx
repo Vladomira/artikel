@@ -45,6 +45,7 @@ export const ChaptersListItem: FC<ChaptersItemProps> = ({
     const onMouseHandler = (chapter: string) => {
         setActiveChapter(chapter);
         setIsOpen(true);
+
         chapters.find((el) => {
             el.chapter === chapter &&
                 (setTopics(el.topics), articlesSwitcher(el.best_of_chapter));
