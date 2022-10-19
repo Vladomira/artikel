@@ -24,6 +24,7 @@ type ListItemProps = {
     onClick?: (prop: boolean) => void;
     hoverColor?: string;
     cursor?: string;
+    borderTop?: string;
 };
 export const ListItem = styled.li<ListItemProps>`
     display: flex;
@@ -44,6 +45,8 @@ export const ListItem = styled.li<ListItemProps>`
         flexBasis ? `calc(${flexBasis})` : ""};
     padding: ${({ padding }): string => (padding ? `${padding}` : "")};
     background: ${({ background }): string => (background ? background : "")};
+
+    border-top:${({ borderTop }): string => (borderTop ? borderTop : "")};
     border-bottom: ${({ borderBottom }): string =>
         borderBottom ? `1px solid ${borderBottom}` : ""};
     border: ${({ border }): string => (border ? `${border}` : "")};

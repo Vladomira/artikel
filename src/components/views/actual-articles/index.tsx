@@ -24,7 +24,6 @@ export const ActualArticles: FC = () => {
 
     const fetchArticles = async () => {
         try {
-            // const response = await fetch(  `${process.env.API_HOST}/api/actual-articles/` );
             const response = await fetch(
                 "http://localhost:3000/api/actual-articles"
             );

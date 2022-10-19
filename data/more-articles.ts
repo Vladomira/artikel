@@ -1,0 +1,32 @@
+export const moreArticles = [
+    {
+        category: "Maatschappij",
+        genre: "Politiek",
+        title: "Humanitaire ramp aan de grens van Polen en Belarus; duizenden vluchtelingen bewust naar hun dood gestuurd",
+        author: "Miroslawa van der Boom",
+        data: "11 dec",
+        time: "6,5",
+        imgName: "humanitarian-crisis",
+        views: 65,
+    },
+    {
+        category: "Gezondheid",
+        genre: "Voeding",
+        title: "Lekker eten met Kerst zonder extra’s kilo’s in gewicht aankomen",
+        author: "Evelien Waterman",
+        data: "23 dec",
+        time: "3,1",
+        imgName: "service",
+        views: 100,
+    },
+    {
+        category: "Maatschappij",
+        genre: "Politiek",
+        title: "Humanitaire ramp aan de grens van Polen en Belarus; duizenden vluchtelingen bewust naar hun dood gestuurd",
+        author: "Miroslawa van der Boom",
+        data: "11 dec",
+        time: "6,5",
+        imgName: "humanitarian-crisis",
+        views: 90,
+    },
+];

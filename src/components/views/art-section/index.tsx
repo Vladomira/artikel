@@ -2,11 +2,15 @@ import { FC } from "react";
 import { Colors } from "../../../utils/colors";
 import { Icon } from "../../icon";
 import { WrapperBox } from "../../wrapper-box";
-import { ArtIconWrapper, ArtWrapper, ArtSection } from "./icon-wrapper.styles";
+import {
+    ArtIconWrapper,
+    ArtWrapper,
+    ArtSectionStyled,
+} from "./icon-wrapper.styles";
 
-export const ActualArticlesList: FC = () => {
+export const ArtSection: FC = () => {
     return (
-        <ArtSection
+        <ArtSectionStyled
             paddingTop={32}
             paddingBottom={0}
             background={Colors.WHITE}
@@ -30,6 +34,6 @@ export const ActualArticlesList: FC = () => {
                     </ArtIconWrapper>
                 </ArtWrapper>
             </WrapperBox>
-        </ArtSection>
+        </ArtSectionStyled>
     );
 };

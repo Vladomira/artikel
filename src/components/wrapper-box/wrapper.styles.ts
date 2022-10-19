@@ -66,6 +66,8 @@ export const WrapperBoxStyled = styled.div<WrapperBoxProps>`
         marginLeft ? `${marginLeft}px` : ""};
     margin-bottom: ${({ marginBottom }): string =>
         marginBottom ? `${marginBottom}px` : ""};
+    margin: ${({ margin }): string => (margin ? margin : "")};
+
     border-bottom: ${({ borderBottom }): string =>
         borderBottom ? borderBottom : ""};
     border-top: ${({ borderTop }): string => (borderTop ? borderTop : "")};

@@ -12,4 +12,5 @@ export enum Colors {
     BLUE = "#6b3ef1",
     TEXT_GREY = "#bebebe",
     ART_SECTION_BACK = "#f2f2f2",
+    GREY_BORDER_TOP = "#979797",
 }
