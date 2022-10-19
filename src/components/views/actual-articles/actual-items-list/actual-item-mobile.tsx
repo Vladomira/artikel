@@ -26,7 +26,7 @@ export const ActualArticlesMibile: FC<ArticleItemProps> = ({
             <WrapperBox width="100%">
                 <Link href="" passHref>
                     <ScaleLink>
-                        <ScaleWrapper width="100%" height={324}>
+                        <ScaleWrapper width="100%" scaleHeight={"324px"}>
                             <Icon
                                 imgName={imgName}
                                 folder="actual-articles"

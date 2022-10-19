@@ -1,10 +1,8 @@
-import Link from "next/link";
 import { FC } from "react";
 import { ChapterInfo } from "../../context/chapters-context";
 import { ArticleInfo } from "./article";
-import { Icon } from "../icon";
 import { WrapperBox } from "../wrapper-box";
-import { ScaleWrapper, ScaleLink } from "./scale-wrapper.styles";
+import { ScaleIcon } from "./scale-icon";
 
 type ChapterWithImgProps = {
     bigChapter: ChapterInfo;
@@ -22,19 +20,14 @@ export const ArticleWithImg: FC<ChapterWithImgProps> = ({
             minWidth="441px"
         >
             {bigChapter.img.length !== 0 && (
-                <Link href="" passHref>
-                    <ScaleLink>
-                        <ScaleWrapper>
-                            <Icon
-                                imgName={bigChapter.img}
-                                format={bigChapter.format}
-                                folder={bigChapter.imgFolder}
-                                width={356}
-                                height={185}
-                            />
-                        </ScaleWrapper>
-                    </ScaleLink>
-                </Link>
+                <ScaleIcon
+                    link=""
+                    format={bigChapter.format}
+                    folder={bigChapter.imgFolder}
+                    imgWidth={356}
+                    imgHeight={185}
+                    imgName={bigChapter.img}
+                />
             )}
             {bigChapter.img.length !== 0 && (
                 <ArticleInfo

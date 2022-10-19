@@ -1,8 +1,12 @@
 import styled from "styled-components";
 import { WrapperBoxStyled } from "../wrapper-box/wrapper.styles";
 
-export const ScaleWrapper = styled(WrapperBoxStyled)`
+type ScaleWrapperprops = {
+    scaleHeight?: string;
+};
+export const ScaleWrapper = styled(WrapperBoxStyled)<ScaleWrapperprops>`
     width: 100%;
+    height: ${({ scaleHeight }) => scaleHeight || ""};
     transition: transform ease 0.6s;
     transform: scale(1);
 

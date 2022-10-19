@@ -12,7 +12,7 @@ export const ArtIconWrapper = styled(WrapperBoxStyled)`
     width: 100%;
     max-width: 972px;
 `;
-export const ArtSection = styled(SectionStyled)`
+export const ArtSectionStyled = styled(SectionStyled)`
     @media (max-width: 765px) {
         margin-top: 220px;
     }

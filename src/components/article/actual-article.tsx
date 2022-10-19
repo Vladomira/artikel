@@ -16,13 +16,17 @@ type ChapterMainInfoprops = {
     topic: string;
     title: string;
     time_reading: string;
-    article: string;
+    article?: string;
     padding?: string;
     marginTopAuthor?: number;
     infoBoxWidth?: string;
     chapterFontSize?: number;
     topicFntSize?: number;
     titleFntSize?: number;
+    articleLineHeight?: string;
+    titleLineHeight?: string;
+    titleWhiteSpace?: string;
+    alignItems?: string;
 };
 
 export const ActualArticleInfo: FC<ChapterMainInfoprops> = ({
@@ -39,11 +43,16 @@ export const ActualArticleInfo: FC<ChapterMainInfoprops> = ({
     chapterFontSize,
     topicFntSize,
     titleFntSize,
+    articleLineHeight,
+    titleLineHeight,
+    titleWhiteSpace,
+    alignItems,
 }) => {
     return (
         <WrapperBox
+            alignItems={alignItems}
             direction="column"
-            width={infoBoxWidth}
+            width={infoBoxWidth || "100%"}
             padding={padding}
             justifyContent={!marginTopAuthor && "space-between"}
         >
@@ -77,19 +86,22 @@ export const ActualArticleInfo: FC<ChapterMainInfoprops> = ({
                     labelText={title}
                     fontWeight={700}
                     fontSize={titleFntSize || 32}
-                    lineHeight={"40px"}
+                    lineHeight={titleLineHeight || "40px"}
+                    whiteSpace={titleWhiteSpace}
                 />
-                <Label
-                    color={"grey"}
-                    fontSize={topicFntSize || 16}
-                    fontWeight={400}
-                    lineHeight={"24px"}
-                    text={article.slice(0, 210)}
-                    textAlign="start"
-                    marginTop={10}
-                />
+                {article && (
+                    <Label
+                        color={"grey"}
+                        fontSize={topicFntSize || 16}
+                        fontWeight={400}
+                        lineHeight={articleLineHeight || "24px"}
+                        text={article.slice(0, 210)}
+                        textAlign="start"
+                        marginTop={10}
+                    />
+                )}
             </WrapperBox>
-            <WrapperBox marginTop={marginTopAuthor || 12}>
+            <WrapperBox marginTop={marginTopAuthor}>
                 <InfoLink
                     link=""
                     hoverColor={Colors.ORANGE}

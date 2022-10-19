@@ -10,7 +10,7 @@ export type ListProps = {
     borderBottom?: string;
     margin?: string;
     padding?: string;
-    marginTop?: string;
+    marginTop?: number | string;
     marginLeft?: string;
     marginRight?: number;
     flexWrap?: string;
