@@ -11,7 +11,7 @@ export default function Home() {
             <main>
                 <ActualArticles />
                 <ArtSection />
-                {/* <LastArticles /> */}
+                <LastArticles />
                 <PopularAuthors />
             </main>
         </>
