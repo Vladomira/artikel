@@ -21,6 +21,7 @@ export type ButtonProps = {
     marginRight?: number;
     margin?: string;
     border?: string;
+    hoverBackground?: string;
 
     background?: string;
     borderRadius?: string;
@@ -51,9 +52,11 @@ export const Button = ({
     top,
     left,
     right,
+    hoverBackground,
 }: PropsWithChildren<ButtonProps>) => {
     return (
         <ButtonStyled
+            hoverBackground={hoverBackground}
             left={left}
             position={position}
             jContent={jContent}

@@ -32,6 +32,7 @@ export type WrapperBoxProps = {
     bottom?: string;
     minWidth?: string;
     borderTop?: string;
+    overflow?: string;
 };
 
 export const WrapperBoxStyled = styled.div<WrapperBoxProps>`
@@ -74,5 +75,6 @@ export const WrapperBoxStyled = styled.div<WrapperBoxProps>`
 
     background: ${({ background }) => (background ? background : "")};
     box-shadow: ${({ boxShadow }) => (boxShadow ? boxShadow : "")};
+    overflow: ${({ overflow }) => overflow || ""};
     z-index: ${({ zIndex }) => (zIndex ? zIndex : "")};
 `;

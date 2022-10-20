@@ -27,6 +27,7 @@ export const WrapperBox = ({
     minWidth,
     borderTop,
     margin,
+    overflow,
 }: PropsWithChildren<WrapperBoxProps>) => {
     return (
         <WrapperBoxStyled
@@ -54,6 +55,7 @@ export const WrapperBox = ({
             zIndex={zIndex}
             marginBottom={marginBottom}
             borderTop={borderTop}
+            overflow={overflow}
         >
             {children}
         </WrapperBoxStyled>

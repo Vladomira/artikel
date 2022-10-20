@@ -31,4 +31,11 @@ export const ButtonStyled = styled.button<ButtonProps>`
     border-radius: ${({ borderRadius }): string => borderRadius || ""};
     background: ${({ background }) =>
         background ? `${background}` : "transparent"};
+
+    transition: all 200ms cubic-bezier(0.17, 0.67, 0.83, 0.67);
+
+    &:hover,
+    &:focus {
+        background: ${({ hoverBackground }) => hoverBackground || ""};
+    }
 `;

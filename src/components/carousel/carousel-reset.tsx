@@ -35,6 +35,10 @@ type Props = {
     autoPlay?: boolean;
     autoplaySpeed?: number;
     speed?: number;
+    arrows?: boolean;
+    boxShadow?: string;
+    easing?: string;
+    margiLeft?: number;
 };
 
 const CarouselReset = ({
@@ -45,29 +49,37 @@ const CarouselReset = ({
     dotBottomPosition,
     infinite,
     dotStyle,
-    noBottomOffset,
     slidesToScroll = 1,
     autoPlay,
     autoplaySpeed,
     children,
     speed,
+    arrows,
+    boxShadow,
+    easing,
+    margiLeft,
 }: PropsWithChildren<Props>) => {
     const slider = useRef(null);
 
     return (
         <CarouselOuterWrapper>
-            <ButtonToSlide
-                onHandleClick={() => slider.current.prev()}
-                left="0px"
-                imgName={"prev"}
-            />
-            <ButtonToSlide
-                onHandleClick={() => slider.current.next()}
-                right="0px"
-                imgName={"next"}
-            />
+            {arrows && (
+                <>
+                    <ButtonToSlide
+                        onHandleClick={() => slider.current.prev()}
+                        left="0px"
+                        imgName={"prev"}
+                    />
+                    <ButtonToSlide
+                        onHandleClick={() => slider.current.next()}
+                        right="0px"
+                        imgName={"next"}
+                    />
+                </>
+            )}
 
             <CarouselWrapper
+                margiLeft={margiLeft}
                 autoplaySpeed={autoplaySpeed}
                 autoplay={autoPlay}
                 variableWidth
@@ -83,6 +95,10 @@ const CarouselReset = ({
                 ref={slider}
                 draggable
                 swipeToSlide
+                easing={easing}
+                boxShadow={boxShadow}
+                touchThreshold={50}
+                focusOnSelect={true}
             >
                 {children}
             </CarouselWrapper>
