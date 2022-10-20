@@ -15,17 +15,16 @@ type CarouselWrapperProps = {
     padding?: string;
     dotBottomPosition?: number;
     dotStyle?: DotStyle;
+    boxShadow?: string;
+    margiLeft?: number;
 };
+
 export const CarouselWrapper = styled(Carousel)<CarouselWrapperProps>`
-box-shadow: 0 2px 10px rgb(0 0 0 / 15%);
-
-@media (max-width: 765px}) {
-    width: max-content;
-    flex-direction: column;
-    height: 100%;
-
-   
+box-shadow: ${({ boxShadow }) => boxShadow || ""};
+.slick-slide {
+    margin-left: ${({ margiLeft }) => (margiLeft ? `${margiLeft}px` : "")};
 }
+
 @media (min-width: 765px}) {
     height: 330px;
 }

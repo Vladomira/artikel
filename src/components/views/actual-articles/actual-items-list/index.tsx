@@ -17,7 +17,10 @@ export const ActualArticlesList: FC<ActualArticlesProps> = ({ articles }) => {
                 isDots={true}
                 noBottomOffset
                 autoplaySpeed={7000}
+                autoPlay
                 speed={1000}
+                arrows
+                boxShadow="0 2px 10px rgb(0 0 0 / 15%)"
                 dotStyle={{
                     activeDot: {
                         dotOffset: 0,

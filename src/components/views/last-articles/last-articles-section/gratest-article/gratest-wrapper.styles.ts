@@ -16,6 +16,6 @@ export const GratestWrapper = styled(WrapperBoxStyled)<MobileWrapperProps>`
 
     @media (${MediaScreen.DESKTOP}) {        
         margin: ${({ marginDesctop }) => (marginDesctop ? marginDesctop : "")}};
-        min-width: 770px;
+        // min-width: 770px;
     }
 `;

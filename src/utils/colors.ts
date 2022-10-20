@@ -13,4 +13,10 @@ export enum Colors {
     TEXT_GREY = "#bebebe",
     ART_SECTION_BACK = "#f2f2f2",
     GREY_BORDER_TOP = "#979797",
+    LIGHT_CARROT = "#ffb590",
+    CARROT = "#f1633e",
+    MINT = "#a4dcd0",
+    DEEP_MINT = "#489c8a",
+    LILAC = "#b6aff6",
+    DEEP_LILAC = "#6b3ef1",
 }
