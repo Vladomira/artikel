@@ -17,6 +17,7 @@ type CarouselWrapperProps = {
     dotStyle?: DotStyle;
     boxShadow?: string;
     margiLeft?: number;
+    borderBottom?: string;
 };
 
 export const CarouselWrapper = styled(Carousel)<CarouselWrapperProps>`

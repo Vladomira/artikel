@@ -50,7 +50,7 @@ export const GratestArticle: FC<GratestArticleprops> = ({
                 </Link>
             </WrapperBox>
 
-            {/* desctop */}
+            {/* desktop */}
             <WrapperBox
                 margin="0px 24px 0px 0px"
                 mediaHidden={MediaScreen.MOBILE}

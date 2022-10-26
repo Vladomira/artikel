@@ -7,21 +7,26 @@ type PureHeaderProps = InfoHeaderProps & {
     display?: string;
     alignItems?: string;
     marginRight?: number;
+    color?: string;
+    hoverColor?: string;
 };
 export const PureHeader = ({
     header,
     children,
     marginRight,
+    color,
+    hoverColor,
 }: PropsWithChildren<PureHeaderProps>) => {
     return (
         <HeaderStyled
-            color={Colors.BLACK}
+            color={color || Colors.BLACK}
             fontSize={20}
             fontWeight={700}
             textTransform="uppercase"
             textAlign={"start"}
             whiteSpace={"nowrap"}
-            hoverColor={Colors.ORANGE}
+            hoverColor={hoverColor}
+            // Colors.ORANGE
             marginRight={marginRight}
         >
             {header}

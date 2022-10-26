@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Colors } from "../../../utils/colors";
 import { PureHeader } from "../../headers/pure-header";
 import { Section } from "../../section";

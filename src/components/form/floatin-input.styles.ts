@@ -1,19 +1,26 @@
 import { Input, Form } from "antd";
 import styled from "styled-components";
 import { Colors } from "../../utils/colors";
+import { MediaScreen } from "../../utils/media";
 import { WrapperBoxStyled } from "../wrapper-box/wrapper.styles";
+
+type InputWrapperProps = { boxwidth: string };
+
+export const InputBoxItem = styled(Form.Item)<InputWrapperProps>`
+    width: ${({ boxwidth }) => (boxwidth ? boxwidth : "")};
+`;
 
 type StyledLabelProps = {
     active: boolean | string;
     value?: string;
     activeColor?: string;
+    mobileLabelLeft?: string;
 };
 
 export const FloatingLabelStyled = styled.label<StyledLabelProps>`
     position: absolute;
     z-index: 1;
     top: ${({ active, value }): string => (active || value ? "4px" : "55%")};
-    left: 0px;
 
     font-family: Merriweather Sans, sans-serif;
     font-size: ${({ active, value }): string =>
@@ -37,6 +44,13 @@ export const FloatingLabelStyled = styled.label<StyledLabelProps>`
             return `color:${Colors.BLUE}`;
         }
     }}
+    @media (${MediaScreen.MOBILE}) {
+        left: 0px;
+    }
+    @media (${MediaScreen.MOBILE}) {
+        left: ${({ mobileLabelLeft }) =>
+            mobileLabelLeft ? mobileLabelLeft : ""};
+    }
 `;
 
 export const FloatingInput = styled(Input)`

@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { WrapperBox } from "../../wrapper-box";
 import { Navigation } from "./navigation-list";
 import { SocialLinks } from "../../social-links";

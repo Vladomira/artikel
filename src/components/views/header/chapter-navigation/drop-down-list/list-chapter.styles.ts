@@ -4,10 +4,11 @@ import { List, ListItem } from "../../../../list";
 
 type ChapterListProps = {
     isActive: boolean;
+    minListWidth?: string;
 };
 export const ListChapterStyled = styled(List)<ChapterListProps>`
     width: 100%;
-    min-width: 150px;
+    min-width: ${({ minListWidth }) => (minListWidth ? minListWidth : "150px")};
     border-right: ${({ isActive }): string =>
         isActive ? `1px solid ${Colors.GREY_VARIANT}` : ""};
 `;
