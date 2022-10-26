@@ -13,8 +13,8 @@ import { HeaderWrapper } from "./bottom-nav-mobile/bottom-nav-mobile.styles";
 
 export const BottomNavSection: FC<BottomChaptersProps> = ({ chapters }) => {
     const [initialInfo, setInitialInfo] = useState<BottomChapter>({
-        chapter: chapters[0].chapter,
-        topics: chapters[0].topics,
+        chapter: chapters[0]?.chapter,
+        topics: chapters[0]?.topics,
     });
     const [isActive, constSetIsActive] = useState();
     const router = useRouter();
