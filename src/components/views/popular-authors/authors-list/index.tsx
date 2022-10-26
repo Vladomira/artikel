@@ -37,18 +37,19 @@ export const AuthorsList: FC = () => {
                 speed={1000}
                 margiLeft={30}
             >
-                {authors.map(({ id, authorName, article }) => {
-                    return (
-                        <AuthorsListItem
-                            id={id}
-                            key={authorName}
-                            authorName={authorName}
-                            article={article}
-                            borderColor={getColor(id).border}
-                            nameColor={getColor(id).nameColor}
-                        />
-                    );
-                })}
+                {authors &&
+                    authors?.map(({ id, authorName, article }) => {
+                        return (
+                            <AuthorsListItem
+                                id={id}
+                                key={authorName}
+                                authorName={authorName}
+                                article={article}
+                                borderColor={getColor(id).border}
+                                nameColor={getColor(id).nameColor}
+                            />
+                        );
+                    })}
             </CarouselReset>
         </WrapperBox>
     );

@@ -3,7 +3,7 @@ import { Colors } from "../../../utils/colors";
 import { Section } from "../../section";
 import { ArticlesQuantity } from "./articles-quantity";
 import { Bulletin } from "./bulletin";
-import { InfoFooterWrapper, LabelWithDecor } from "./info-footer.styles";
+import { InfoFooterWrapper } from "./info-footer.styles";
 import { Privacy } from "./privacy";
 
 export const FooterInfo: FC = () => {

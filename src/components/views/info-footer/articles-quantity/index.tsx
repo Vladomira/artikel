@@ -4,9 +4,8 @@ import {
     quantityItems,
 } from "../../../../utils/arrays/articles-quantity";
 import { Colors } from "../../../../utils/colors";
-import { BottomHeader } from "../../../headers/bottom-header";
 import { Label } from "../../../label";
-import { List, ListItem } from "../../../list";
+import { ListItem } from "../../../list";
 import {
     ArticleswQuantityWrpper,
     ArticlesHeader,
@@ -27,7 +26,7 @@ export const ArticlesQuantity: FC = () => {
             </ArticlesHeader>
 
             <ArticlesList display="flex" marginTop={30}>
-                {quantityItems.map(({ name, quantity }, idx) => {
+                {quantityItems?.map(({ name, quantity }, idx) => {
                     return (
                         <ListItem
                             key={name}

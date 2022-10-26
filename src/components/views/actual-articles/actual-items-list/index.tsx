@@ -38,7 +38,7 @@ export const ActualArticlesList: FC<ActualArticlesProps> = ({ articles }) => {
                 }}
             >
                 {articles.length > 0 &&
-                    articles.map(
+                    articles?.map(
                         ({
                             title,
                             category,

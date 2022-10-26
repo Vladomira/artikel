@@ -16,7 +16,7 @@ export const TopicList: FC<TopicListProps> = ({ topics }) => {
             marginTop={"-15"}
             marginLeft={"-15"}
         >
-            {topics.map((el) => (
+            {topics?.map((el) => (
                 <ListItem
                     key={el}
                     marginTop={15}

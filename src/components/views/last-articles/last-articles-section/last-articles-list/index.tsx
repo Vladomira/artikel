@@ -9,7 +9,7 @@ type ArticlesListProps = {
 export const LastArticlesList: FC<ArticlesListProps> = ({ articles }) => {
     return (
         <List>
-            {articles.map(
+            {articles?.map(
                 (
                     {
                         category,

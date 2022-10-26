@@ -24,22 +24,23 @@ export const BottomNavDesktop: FC<BottomNavProps> = ({
                 direction="column"
                 overflow="unset"
             >
-                {chapters.map(({ chapter }) => (
-                    <BottomNavItem
-                        key={chapter}
-                        onClick={() => onHandleClick(chapter)}
-                        padding="6px 0px"
-                        isActive={chapter === initialChapter}
-                    >
-                        <Label
-                            color="currentColor"
-                            fontSize={14}
-                            fontWeight={700}
-                            text={chapter}
-                            lineHeight={"1.4"}
-                        />
-                    </BottomNavItem>
-                ))}
+                {chapters &&
+                    chapters?.map(({ chapter }) => (
+                        <BottomNavItem
+                            key={chapter}
+                            onClick={() => onHandleClick(chapter)}
+                            padding="6px 0px"
+                            isActive={chapter === initialChapter}
+                        >
+                            <Label
+                                color="currentColor"
+                                fontSize={14}
+                                fontWeight={700}
+                                text={chapter}
+                                lineHeight={"1.4"}
+                            />
+                        </BottomNavItem>
+                    ))}
             </BottomListStyled>
             <BottomNavTopics topics={topics} />
         </WrapperBox>
