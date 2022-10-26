@@ -52,6 +52,7 @@ export const List = styled.ul<ListProps>`
     margin: ${({ margin }): string => (margin ? margin : "")};
 
     padding: ${({ padding }): string => (padding ? `${padding}` : "")};
+    border-bottom: ${({ borderBottom }): string => borderBottom || ""};
 
     background: ${({ background }): string => (background ? background : "")};
     box-shdow: ${({ boxShadow }): string => (boxShadow ? boxShadow : "")};

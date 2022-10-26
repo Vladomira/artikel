@@ -22,11 +22,14 @@ export type ButtonProps = {
     margin?: string;
     border?: string;
     hoverBackground?: string;
+    color?: string;
+    hoverColor?: string;
 
     background?: string;
     borderRadius?: string;
     type?: "button" | "reset" | "submit";
     onClick?: () => void;
+    zIndex?: number;
 };
 export const Button = ({
     border,
@@ -53,9 +56,15 @@ export const Button = ({
     left,
     right,
     hoverBackground,
+    color,
+    hoverColor,
+    zIndex,
 }: PropsWithChildren<ButtonProps>) => {
     return (
         <ButtonStyled
+            zIndex={zIndex}
+            color={color}
+            hoverColor={hoverColor}
             hoverBackground={hoverBackground}
             left={left}
             position={position}

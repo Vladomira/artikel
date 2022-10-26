@@ -1,7 +1,6 @@
 import React, { PropsWithChildren, useState } from "react";
 import { InputLabelProps, FloatingLabel } from "./floating-label";
-import { Form } from "antd";
-import { FloatingInput } from "./floatin-input.styles";
+import { FloatingInput, InputBoxItem } from "./floatin-input.styles";
 
 type TextInputProps = {
     name: string;
@@ -10,6 +9,8 @@ type TextInputProps = {
     type: string;
     activeColor?: string;
     marginTop?: number;
+    boxwidth?: string;
+    mobileLabelLeft?: string;
 };
 
 export const InputWithFloatingLabel = ({
@@ -20,6 +21,8 @@ export const InputWithFloatingLabel = ({
     children,
     activeColor,
     marginTop,
+    boxwidth,
+    mobileLabelLeft,
     ...otherProps
 }: PropsWithChildren<TextInputProps & InputLabelProps>) => {
     const [active, setActive] = useState(false);
@@ -32,7 +35,7 @@ export const InputWithFloatingLabel = ({
     };
 
     return (
-        <Form.Item>
+        <InputBoxItem boxwidth={boxwidth}>
             <>
                 <FloatingLabel
                     active={active}
@@ -40,6 +43,7 @@ export const InputWithFloatingLabel = ({
                     {...otherProps}
                     marginTop={marginTop}
                     activeColor={activeColor}
+                    mobileLabelLeft={mobileLabelLeft}
                 >
                     <FloatingInput
                         onBlur={onBlur}
@@ -54,6 +58,6 @@ export const InputWithFloatingLabel = ({
                     {children}
                 </FloatingLabel>
             </>
-        </Form.Item>
+        </InputBoxItem>
     );
 };

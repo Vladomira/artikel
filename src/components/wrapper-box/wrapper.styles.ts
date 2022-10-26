@@ -45,8 +45,8 @@ export const WrapperBoxStyled = styled.div<WrapperBoxProps>`
     position:${({ position }): string => position || ""};
     top: ${({ top }): string => top || ""};
     bottom: ${({ bottom }): string => (bottom ? bottom : "")};
-    right: ${({ right }): string => right || ""};
-    left: ${({ left }): string => left || ""};
+    right: ${({ right }): string => (right ? right : "")};
+    left: ${({ left }): string => (left ? left : "")};
 
     display: flex;
     justify-content: ${({ justifyContent }): string =>

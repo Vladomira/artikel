@@ -6,9 +6,10 @@ type LinkProps = LinkStyledProps & {
     text: string;
     color: string;
     link: string;
-    decoration: "underline";
+    decoration: "underline" | "none";
     hoverColor: string;
     noopener?: boolean;
+    height?: number;
 };
 export const LinkComponent: FC<LinkProps> = ({
     text,
@@ -23,11 +24,14 @@ export const LinkComponent: FC<LinkProps> = ({
     hoverColor,
     cursor,
     noopener,
+    padding,
+    height,
 }) => {
     return (
         <Link href={link} passHref>
             <LinkStyled
-                target="_blank"
+                padding={padding}
+                // target="_blank"
                 rel={noopener && "noopener noreferrer"}
                 textDecoration={decoration}
                 color={color}

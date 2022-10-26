@@ -10,6 +10,7 @@ type OtherProps = {
     value?: string;
     activeColor?: string;
     marginTop?: number;
+    mobileLabelLeft?: string;
 };
 
 export const FloatingLabel = ({
@@ -19,6 +20,7 @@ export const FloatingLabel = ({
     value,
     activeColor,
     marginTop,
+    mobileLabelLeft,
 }: PropsWithChildren<InputLabelProps & OtherProps>) => {
     return (
         <InputWrapper
@@ -33,6 +35,7 @@ export const FloatingLabel = ({
                 active={active}
                 value={value}
                 activeColor={activeColor}
+                mobileLabelLeft={mobileLabelLeft}
             >
                 {labelText}
             </FloatingLabelStyled>

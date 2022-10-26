@@ -3,6 +3,7 @@ export enum Colors {
     GREY = "#333",
     LABEL_GREY = "#bcbcbc",
     BLACK = "#000",
+    BROWN_BLACK = "#121212",
     BLUE_VIOLET = "#6b3ef1",
     LIGHT_VIOLET = "#876fdb",
     LIGHT_GREY = "#ebebeb",

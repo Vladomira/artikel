@@ -52,7 +52,8 @@ export const ListItem = styled.li<ListItemProps>`
     border: ${({ border }): string => (border ? `${border}` : "")};
     border-radius: ${({ borderRadius }): string =>
         borderRadius ? `${borderRadius}px` : ""};
-        border-radius:${({ radius }): string => radius || ""}}
+        border-radius:${({ radius }): string => radius || ""}};
+    color: ${({ color }): string => color || ""};
     box-shadow: ${({ boxShadow }): string => (boxShadow ? boxShadow : "")};
     transition: all 200ms cubic-bezier(0.17, 0.67, 0.83, 0.67);
     cursor: ${({ cursor }): string => (cursor ? cursor : "")};

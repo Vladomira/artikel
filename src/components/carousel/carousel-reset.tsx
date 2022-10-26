@@ -39,6 +39,7 @@ type Props = {
     boxShadow?: string;
     easing?: string;
     margiLeft?: number;
+    borderBottom?: string;
 };
 
 const CarouselReset = ({
@@ -58,6 +59,7 @@ const CarouselReset = ({
     boxShadow,
     easing,
     margiLeft,
+    borderBottom,
 }: PropsWithChildren<Props>) => {
     const slider = useRef(null);
 
@@ -99,6 +101,7 @@ const CarouselReset = ({
                 boxShadow={boxShadow}
                 touchThreshold={50}
                 focusOnSelect={true}
+                borderBottom={borderBottom}
             >
                 {children}
             </CarouselWrapper>

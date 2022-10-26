@@ -8,12 +8,17 @@ export type LinkStyledProps = {
     fontStyle?: "italic";
     lineHeight?: string;
     letterSpacing?: string;
-    textDecoration?: "underline";
+    textDecoration?: "underline" | "none";
     hoverColor?: string;
     cursor?: string;
+    padding?: string;
+    height?: number;
 };
 
 export const LinkStyled = styled.a<LinkStyledProps>`
+    padding: ${({ padding }): string => padding || ""};
+
+    height: ${({ height }): string => (height ? `${height}px` : "")};
     line-height: ${({ lineHeight }): string => lineHeight || "1.4"};
     letter-spacing: ${({ letterSpacing }): string => letterSpacing || ""};
     color: ${({ color }): string => color};
@@ -29,3 +34,9 @@ export const LinkStyled = styled.a<LinkStyledProps>`
         color: ${({ hoverColor }): string => hoverColor || ""};
     }
 `;
+
+export type PureLinkStyledProps = {
+    width: string;
+    height: string;
+};
+export const PureLinkStyled = styled.a<PureLinkStyledProps>``;
