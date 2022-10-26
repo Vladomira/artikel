@@ -14,7 +14,7 @@ export default function Home({ chapters }) {
             <main>
                 <ActualArticles />
                 <ArtSection />
-                {/* <LastArticles /> */}
+                <LastArticles />
                 <PopularAuthors />
                 <BottomNav chapters={chapters} />
                 <FooterInfo />

@@ -21,8 +21,6 @@ export const FloatingLabelStyled = styled.label<StyledLabelProps>`
     position: absolute;
     z-index: 1;
     top: ${({ active, value }): string => (active || value ? "4px" : "55%")};
-    left: ${({ mobileLabelLeft }) =>
-        mobileLabelLeft ? mobileLabelLeft : "0px"};
 
     font-family: Merriweather Sans, sans-serif;
     font-size: ${({ active, value }): string =>
@@ -46,6 +44,9 @@ export const FloatingLabelStyled = styled.label<StyledLabelProps>`
             return `color:${Colors.BLUE}`;
         }
     }}
+    @media (${MediaScreen.MOBILE}) {
+        left: 0px;
+    }
     @media (${MediaScreen.MOBILE}) {
         left: ${({ mobileLabelLeft }) =>
             mobileLabelLeft ? mobileLabelLeft : ""};
