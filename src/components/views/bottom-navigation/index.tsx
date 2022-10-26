@@ -2,7 +2,6 @@ import { FC } from "react";
 import { BottomChaptersProps } from "../../../api/chapters-bottom-request";
 import { Colors } from "../../../utils/colors";
 import { Container } from "../../container/container";
-import { WrapperBox } from "../../wrapper-box";
 import { BecomeWriter } from "./become-writer";
 import { BottomNavSection } from "./bottom-nav-chapters-list";
 import {

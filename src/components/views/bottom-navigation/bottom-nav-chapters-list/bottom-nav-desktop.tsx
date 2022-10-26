@@ -25,6 +25,7 @@ export const BottomNavDesktop: FC<BottomNavProps> = ({
                 overflow="unset"
             >
                 {chapters &&
+                    chapters.length > 0 &&
                     chapters?.map(({ chapter }) => (
                         <BottomNavItem
                             key={chapter}

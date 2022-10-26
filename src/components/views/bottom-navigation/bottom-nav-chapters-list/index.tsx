@@ -24,6 +24,7 @@ export const BottomNavSection: FC<BottomChaptersProps> = ({ chapters }) => {
             router.push(`/${chapter.toLowerCase()}`);
         chapters.find((el) => el.chapter === chapter && setInitialInfo(el));
     };
+
     return (
         <>
             <WrapperBox direction="column">
