@@ -27,7 +27,7 @@ export const MobileBottomNavSection: FC<BottomNavProps> = ({
                     infinite={false}
                 >
                     {chapters &&
-                        chapters.map((el, idx) => {
+                        chapters?.map((el, idx) => {
                             return (
                                 <MobileNavItem
                                     key={el.chapter}

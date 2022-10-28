@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
 import { fetchBottomChapters } from "../src/api/chapters-bottom-request";
 import { ActualArticles } from "../src/components/views/actual-articles";
 import { ArtSection } from "../src/components/views/art-section";
@@ -6,8 +8,14 @@ import { Header } from "../src/components/views/header";
 import { FooterInfo } from "../src/components/views/info-footer";
 import { LastArticles } from "../src/components/views/last-articles";
 import { PopularAuthors } from "../src/components/views/popular-authors";
+import { AuthContext } from "../src/context/auth-context";
 
 export default function Home({ chapters }) {
+    const { isLoggedIn } = useContext(AuthContext);
+    const router = useRouter();
+    useEffect(() => {
+        !isLoggedIn ? router.push("/login") : router.push("/");
+    }, [isLoggedIn]);
     return (
         <>
             <Header />

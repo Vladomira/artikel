@@ -44,6 +44,7 @@ export const FloatingLabelStyled = styled.label<StyledLabelProps>`
             return `color:${Colors.BLUE}`;
         }
     }}
+
     @media (${MediaScreen.MOBILE}) {
         left: 0px;
     }

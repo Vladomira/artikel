@@ -1,10 +1,13 @@
-import { FC, useState } from "react";
+import { FC, SyntheticEvent, useContext, useEffect, useState } from "react";
 import { CheckboxComponent } from "../../../../../form/checkbox";
 import { FormComponent } from "../../../../../form";
 import { Colors } from "../../../../../../utils/colors";
 import { StyledParagraph } from "../../../../../paragraph/paragraph.styles";
 import { LinkComponent } from "../../../../../link";
 import { InputWithFloatingLabel } from "../../../../../form/form-input";
+import { AuthContext } from "../../../../../../context/auth-context";
+import { initialUserData, UserDataProps } from "../modal-login/login-form";
+import { useRouter } from "next/router";
 
 type UserNameProps = {
     name: string;
@@ -12,14 +15,35 @@ type UserNameProps = {
 };
 
 export const RegisterForm: FC = () => {
+    const router = useRouter();
+    const { error, registerUser, isLoggedIn, createUser, changeIsLoggedIn } =
+        useContext(AuthContext);
+    const [userData, setUserData] = useState<UserDataProps>(initialUserData);
     const [userName, setUserName] = useState<UserNameProps>({
         name: "",
         surname: "",
     });
+    useEffect(() => {
+        isLoggedIn && router.push("/");
+    }, [isLoggedIn]);
+
     const onHandleChange = (name: string, value: string) => {
-        setUserName((prev) => {
+        setUserData((prev) => {
             return { ...prev, [name]: value };
         });
+    };
+
+    const handleOnSubmit = (event: SyntheticEvent) => {
+        event.preventDefault();
+
+        if (!error) {
+            registerUser(userData.email, userData.password);
+            createUser(userData.email, userData.password);
+
+            setUserData(initialUserData);
+            changeIsLoggedIn(true);
+            router.push("/");
+        }
     };
     return (
         <>
@@ -29,6 +53,10 @@ export const RegisterForm: FC = () => {
                 title={"Registreer"}
                 marginInputTop={6}
                 titleBottom={11}
+                handleOnSubmit={handleOnSubmit}
+                onHandleChange={onHandleChange}
+                email={userData.email}
+                password={userData.password}
             >
                 <InputWithFloatingLabel
                     name={userName.name}

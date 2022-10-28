@@ -13,7 +13,7 @@ export const BottomNavTopics: FC<{ topics: string[] }> = ({ topics }) => (
             direction="column"
             overflow="unset"
         >
-            {topics.map((el) => (
+            {topics?.map((el) => (
                 <BottomTopicItem
                     key={el}
                     flexBasis={"(100% / 4 - 30px)"}

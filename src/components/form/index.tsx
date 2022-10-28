@@ -1,20 +1,13 @@
-import { PropsWithChildren, useState } from "react";
-import { Form } from "antd";
+import { PropsWithChildren, SyntheticEvent, useContext, useState } from "react";
 import { InputWithFloatingLabel } from "./form-input";
 import { WrapperBox } from "../wrapper-box";
 import { EyeIcon } from "./form-eye";
 import { Colors } from "../../utils/colors";
 import { SubmitButton } from "../submit-button";
 import { Title } from "../title";
+import { StyledPureForm } from "./pure-form.styles";
+import { AuthContext } from "../../context/auth-context";
 
-type UserDataProps = {
-    email: string;
-    password: string;
-};
-const initialData: UserDataProps = {
-    email: "",
-    password: "",
-};
 type FormComponentProps = {
     submitText: string;
     title?: string;
@@ -22,6 +15,21 @@ type FormComponentProps = {
     marginButtonTop?: number;
     marginInputTop: number;
     titleBottom?: number;
+    email: string;
+    password: string;
+    handleOnSubmit: (event: SyntheticEvent) => void;
+    onHandleChange: (name: string, value: string) => void;
+};
+
+export enum FormErrors {
+    FIRST_NAME = "Required",
+    LAST_NAME = "Required",
+    EMAIL = "Email is not valid",
+    PASSWORD = "Password must be at least 6 characters",
+}
+let errors = {
+    email: FormErrors.EMAIL,
+    password: FormErrors.PASSWORD,
 };
 
 export const FormComponent = ({
@@ -31,18 +39,35 @@ export const FormComponent = ({
     marginButtonTop,
     marginInputTop,
     titleBottom,
+    handleOnSubmit,
+    onHandleChange,
+    email,
+    password,
 }: PropsWithChildren<FormComponentProps>) => {
-    const [userData, setUserData] = useState<UserDataProps>(initialData);
     const [visiblePassword, setVisiblePassword] = useState(false);
-    const onHandleChange = (name: string, value: string) => {
-        setUserData((prev) => {
-            return { ...prev, [name]: value };
-        });
-    };
+
+    // const handleOnSubmit = (event: SyntheticEvent) => {
+    //     event.preventDefault();
+    //     // if (!validateForm(errors)) {
+    //     //     setFormErrors(errors);
+    //     //     setIsSubmited(true);
+    //     //     return;
+    //     // }
+    //     // const { email, password } = formValues;
+    //     // signInWithCredentials(email, password);
+    //     // setFormValues({
+    //     //     email: "",
+    //     //     password: "",
+    //     // });
+    //     registerUser(userData.email, userData.password);
+    //     createUser(userData.email, userData.password);
+    //     changeIsLoggedIn(true);
+    //     setUserData(initialData);
+    // };
 
     return (
         <>
-            <Form>
+            <StyledPureForm onSubmit={handleOnSubmit}>
                 {title && (
                     <Title
                         color={Colors.WHITE}
@@ -60,7 +85,7 @@ export const FormComponent = ({
                 <InputWithFloatingLabel
                     name="email"
                     labelText={"E-mail"}
-                    value={userData.email}
+                    value={email}
                     onHandleChange={onHandleChange}
                     type="email"
                 />
@@ -69,7 +94,7 @@ export const FormComponent = ({
                     name="password"
                     labelText={"Wachtwoord"}
                     onHandleChange={onHandleChange}
-                    value={userData.password}
+                    value={password}
                     type={visiblePassword ? "text" : "password"}
                     marginTop={marginInputTop}
                 >
@@ -91,7 +116,23 @@ export const FormComponent = ({
                     text={submitText}
                     marginTop={marginButtonTop ? marginButtonTop : 48}
                 />
-            </Form>
+            </StyledPureForm>
         </>
     );
 };
+
+// switch (name) {
+// case "email":
+// /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+//     ? alert(FormErrors.EMAIL)
+//     : setUserData((prev) => {
+//           return { ...prev, [name]: value };
+//       });
+
+// case "password":
+//     return value.length >= 6
+//         ? setUserData((prev) => {
+//               return { ...prev, [name]: value };
+//           })
+//         : FormErrors.PASSWORD;
+// }
