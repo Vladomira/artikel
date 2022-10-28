@@ -6,10 +6,7 @@ type User = {
     // name: string;
     password: string;
 };
-type UserPost = {
-    email: string;
-    password: string;
-};
+
 type TokenData = {
     accessToken: string | null;
     refreshToken: string | null;
@@ -22,6 +19,7 @@ type ContextType = {
     loginUser: (email: string, password: string) => Promise<any>;
     isLoggedIn: boolean;
     changeIsLoggedIn: (prop: boolean) => void;
+    logOut: () => void;
     error: boolean;
 };
 export const AuthContext = React.createContext<ContextType>({
@@ -31,6 +29,7 @@ export const AuthContext = React.createContext<ContextType>({
     loginUser: async () => Promise,
     isLoggedIn: false,
     changeIsLoggedIn: () => {},
+    logOut: () => {},
     error: false,
 });
 const initUser = {
@@ -38,14 +37,14 @@ const initUser = {
     email: "",
     password: "",
 };
-const initTokenData = {
-    accessToken: null,
-    refreshToken: null,
-};
+
 const BASE_URL = "http://localhost:4200";
 
 const setAuthHeader = (token: string) => {
     return (axios.defaults.headers.common.Authorization = `Bearer ${token}`);
+};
+const clearAuthHeader = () => {
+    axios.defaults.headers.common.Authorization = "";
 };
 export const AuthProvider = ({ children }: PropsWithChildren) => {
     const [user, setUser] = useState<User>(initUser);
@@ -60,27 +59,38 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         });
 
     const changeIsLoggedIn = (prop: boolean) => setIsLoggedIn(prop);
-    useEffect(() => {
-        const refreshToken = JSON.parse(localStorage.getItem("refreshToken"));
-        const accessToken = JSON.parse(localStorage.getItem("accessToken"));
-        if (refreshToken || accessToken) setIsLoggedIn(true);
-    }, []);
+
     const registerUser = async (
         email: string,
         password: string
     ): Promise<TokenData> => {
         try {
-            const { data } = await axios.post(`${BASE_URL}/auth/sign-up`, {
-                email,
-                password,
-            });
-            const { accessToken, refreshToken } = data;
-            setAuthHeader(data.accessToken);
+            const { data } = await axios
+                .post(`${BASE_URL}/auth/sign-up`, {
+                    email,
+                    password,
+                })
+                .catch((error) => {
+                    setError(true);
+                    setIsLoggedIn(false);
+                    alert(error.message);
+                    return error;
+                });
 
-            localStorage.setItem("accessToken", JSON.stringify(accessToken));
-            localStorage.setItem("refreshToken", JSON.stringify(refreshToken));
-            setIsLoggedIn(true);
+            if (data!) {
+                const { accessToken, refreshToken } = data;
+                setAuthHeader(data.accessToken);
 
+                localStorage.setItem(
+                    "accessToken",
+                    JSON.stringify(accessToken)
+                );
+                localStorage.setItem(
+                    "refreshToken",
+                    JSON.stringify(refreshToken)
+                );
+                setIsLoggedIn(true);
+            }
             return data;
         } catch (error) {
             setError(true);
@@ -93,16 +103,79 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         password: string
     ): Promise<TokenData> => {
         try {
-            const { data } = await axios.post(`${BASE_URL}/auth/sign-in`, {
-                email,
-                password,
+            const { data } = await axios
+                .post(`${BASE_URL}/auth/sign-in`, {
+                    email,
+                    password,
+                })
+                .catch((error) => {
+                    setError(true);
+                    setIsLoggedIn(false);
+                    alert(error.message);
+                    return error;
+                });
+
+            if (data) {
+                const { accessToken, refreshToken } = data;
+                localStorage.setItem(
+                    "accessToken",
+                    JSON.stringify(accessToken)
+                );
+                localStorage.setItem(
+                    "refreshToken",
+                    JSON.stringify(refreshToken)
+                );
+                setIsLoggedIn(true);
+                setAuthHeader(data.accessToken);
+                return data;
+            }
+        } catch (error) {
+            setError(true);
+            setIsLoggedIn(false);
+            alert((error as Error).message);
+        }
+    };
+
+    const logOut = async (): Promise<any> => {
+        try {
+            localStorage.setItem("accessToken", "");
+            localStorage.setItem("refreshToken", "");
+            setIsLoggedIn(false);
+            clearAuthHeader();
+        } catch (error) {
+            setError(true);
+            setIsLoggedIn(false);
+            alert((error as Error).message);
+        }
+    };
+    useEffect(() => {
+        const getRefresh = localStorage.getItem("refreshToken");
+        if (getRefresh) {
+            const refreshToken = JSON.parse(getRefresh);
+            refreshToken && getRefreshData(refreshToken);
+
+            const secondAccess = JSON.parse(
+                localStorage.getItem("accessToken")
+            );
+            const secondRefresh = JSON.parse(
+                localStorage.getItem("refreshToken")
+            );
+
+            if (secondAccess && secondRefresh) setIsLoggedIn(true);
+        }
+    }, []);
+
+    const getRefreshData = async (refresh: string): Promise<TokenData> => {
+        if (!refresh) {
+            return;
+        }
+        try {
+            const { data } = await axios.post(`${BASE_URL}/auth/refresh`, {
+                refreshToken: refresh,
             });
             const { accessToken, refreshToken } = data;
-            setAuthHeader(data.accessToken);
-
             localStorage.setItem("accessToken", JSON.stringify(accessToken));
             localStorage.setItem("refreshToken", JSON.stringify(refreshToken));
-            setIsLoggedIn(true);
             return data;
         } catch (error) {
             setError(true);
@@ -110,32 +183,21 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         }
     };
 
-    const getRefreshData = async (): Promise<TokenData> => {
-        const refreshToken = JSON.parse(localStorage.getItem("refreshToken"));
-        if (!refreshToken) {
-            return;
-        }
-        try {
-            const { data } = await axios.post(`${BASE_URL}/auth/refresh`, {
-                refreshToken: refreshToken,
-            });
-            return data;
-        } catch (error) {
-            alert((error as Error).message);
-        }
-    };
-
     const getCurrentUser = async () => {
-        const accessToken = JSON.parse(localStorage.getItem("accessToken"));
+        const getAccess = localStorage.getItem("accessToken");
+        if (getAccess) {
+            const accessToken = JSON.parse(getAccess);
 
-        if (!accessToken) return;
-        setAuthHeader(accessToken);
+            if (!accessToken) return;
 
-        try {
-            const { data } = await axios.get(`${BASE_URL}/user/me`);
-            return data;
-        } catch (error) {
-            alert((error as Error).message);
+            setAuthHeader(accessToken);
+
+            try {
+                const { data } = await axios.get(`${BASE_URL}/user/me`);
+                return data;
+            } catch (error) {
+                alert((error as Error).message);
+            }
         }
     };
 
@@ -152,6 +214,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
                 isLoggedIn,
                 changeIsLoggedIn,
                 loginUser,
+                logOut,
                 error,
             }}
         >

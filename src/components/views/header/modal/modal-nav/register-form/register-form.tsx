@@ -8,6 +8,7 @@ import { InputWithFloatingLabel } from "../../../../../form/form-input";
 import { AuthContext } from "../../../../../../context/auth-context";
 import { initialUserData, UserDataProps } from "../modal-login/login-form";
 import { useRouter } from "next/router";
+import { REG_EX } from "../../../../../../utils/form-error";
 
 type UserNameProps = {
     name: string;
@@ -23,20 +24,36 @@ export const RegisterForm: FC = () => {
         name: "",
         surname: "",
     });
+    const [isValid, setIsValid] = useState(false);
+
     useEffect(() => {
         isLoggedIn && router.push("/");
     }, [isLoggedIn]);
 
     const onHandleChange = (name: string, value: string) => {
         setUserData((prev) => {
+            switch (name) {
+                case "email":
+                    !REG_EX.test(value) ? setIsValid(false) : setIsValid(true);
+                    break;
+
+                case "password":
+                    value.length < 8 ? setIsValid(false) : setIsValid(true);
+                    break;
+            }
             return { ...prev, [name]: value };
         });
     };
 
     const handleOnSubmit = (event: SyntheticEvent) => {
         event.preventDefault();
-
-        if (!error) {
+        if (error) {
+            alert("Something went wrong");
+        }
+        if (!isValid) {
+            alert("Type correct data");
+        }
+        if (!error && isValid) {
             registerUser(userData.email, userData.password);
             createUser(userData.email, userData.password);
 
@@ -57,6 +74,8 @@ export const RegisterForm: FC = () => {
                 onHandleChange={onHandleChange}
                 email={userData.email}
                 password={userData.password}
+                setIsValid={setIsValid}
+                disabled={!isValid}
             >
                 <InputWithFloatingLabel
                     name={userName.name}
@@ -66,6 +85,7 @@ export const RegisterForm: FC = () => {
                     type="text"
                     activeColor={Colors.ORANGE}
                     marginTop={6}
+                    setIsValid={setIsValid}
                 />
                 <InputWithFloatingLabel
                     name={userName.surname}
@@ -75,6 +95,7 @@ export const RegisterForm: FC = () => {
                     type="text"
                     activeColor={Colors.ORANGE}
                     marginTop={6}
+                    setIsValid={setIsValid}
                 />
                 <CheckboxComponent marginTop={13}>
                     <StyledParagraph

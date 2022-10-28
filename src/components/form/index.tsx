@@ -6,7 +6,6 @@ import { Colors } from "../../utils/colors";
 import { SubmitButton } from "../submit-button";
 import { Title } from "../title";
 import { StyledPureForm } from "./pure-form.styles";
-import { AuthContext } from "../../context/auth-context";
 
 type FormComponentProps = {
     submitText: string;
@@ -19,17 +18,8 @@ type FormComponentProps = {
     password: string;
     handleOnSubmit: (event: SyntheticEvent) => void;
     onHandleChange: (name: string, value: string) => void;
-};
-
-export enum FormErrors {
-    FIRST_NAME = "Required",
-    LAST_NAME = "Required",
-    EMAIL = "Email is not valid",
-    PASSWORD = "Password must be at least 6 characters",
-}
-let errors = {
-    email: FormErrors.EMAIL,
-    password: FormErrors.PASSWORD,
+    setIsValid: (prop: boolean) => void;
+    disabled?: boolean;
 };
 
 export const FormComponent = ({
@@ -43,27 +33,10 @@ export const FormComponent = ({
     onHandleChange,
     email,
     password,
+    setIsValid,
+    disabled,
 }: PropsWithChildren<FormComponentProps>) => {
     const [visiblePassword, setVisiblePassword] = useState(false);
-
-    // const handleOnSubmit = (event: SyntheticEvent) => {
-    //     event.preventDefault();
-    //     // if (!validateForm(errors)) {
-    //     //     setFormErrors(errors);
-    //     //     setIsSubmited(true);
-    //     //     return;
-    //     // }
-    //     // const { email, password } = formValues;
-    //     // signInWithCredentials(email, password);
-    //     // setFormValues({
-    //     //     email: "",
-    //     //     password: "",
-    //     // });
-    //     registerUser(userData.email, userData.password);
-    //     createUser(userData.email, userData.password);
-    //     changeIsLoggedIn(true);
-    //     setUserData(initialData);
-    // };
 
     return (
         <>
@@ -88,6 +61,7 @@ export const FormComponent = ({
                     value={email}
                     onHandleChange={onHandleChange}
                     type="email"
+                    setIsValid={setIsValid}
                 />
 
                 <InputWithFloatingLabel
@@ -97,6 +71,7 @@ export const FormComponent = ({
                     value={password}
                     type={visiblePassword ? "text" : "password"}
                     marginTop={marginInputTop}
+                    setIsValid={setIsValid}
                 >
                     <WrapperBox
                         onClick={() => setVisiblePassword(!visiblePassword)}
@@ -113,6 +88,7 @@ export const FormComponent = ({
                 {children}
 
                 <SubmitButton
+                    disabled={disabled}
                     text={submitText}
                     marginTop={marginButtonTop ? marginButtonTop : 48}
                 />
@@ -120,19 +96,3 @@ export const FormComponent = ({
         </>
     );
 };
-
-// switch (name) {
-// case "email":
-// /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-//     ? alert(FormErrors.EMAIL)
-//     : setUserData((prev) => {
-//           return { ...prev, [name]: value };
-//       });
-
-// case "password":
-//     return value.length >= 6
-//         ? setUserData((prev) => {
-//               return { ...prev, [name]: value };
-//           })
-//         : FormErrors.PASSWORD;
-// }

@@ -11,11 +11,11 @@ import { PopularAuthors } from "../src/components/views/popular-authors";
 import { AuthContext } from "../src/context/auth-context";
 
 export default function Home({ chapters }) {
-    const { isLoggedIn } = useContext(AuthContext);
+    const { isLoggedIn, error } = useContext(AuthContext);
     const router = useRouter();
     useEffect(() => {
-        !isLoggedIn ? router.push("/login") : router.push("/");
-    }, [isLoggedIn]);
+        !isLoggedIn || error ? router.push("/login") : router.push("/");
+    }, [isLoggedIn, error]);
     return (
         <>
             <Header />

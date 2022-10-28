@@ -7,6 +7,7 @@ import { FormComponent } from "../../../../../form";
 import { AuthContext } from "../../../../../../context/auth-context";
 import { useRouter } from "next/router";
 import { WrapperBox } from "../../../../../wrapper-box";
+import { REG_EX } from "../../../../../../utils/form-error";
 
 export type UserDataProps = {
     email: string;
@@ -16,24 +17,42 @@ export const initialUserData: UserDataProps = {
     email: "",
     password: "",
 };
+
 export const LoginForm: FC = () => {
     const router = useRouter();
     const { error, loginUser, createUser, changeIsLoggedIn, isLoggedIn } =
         useContext(AuthContext);
     const [userData, setUserData] = useState<UserDataProps>(initialUserData);
+    const [isValid, setIsValid] = useState(false);
 
     useEffect(() => {
         isLoggedIn && router.push("/");
     }, [isLoggedIn]);
+
     const onHandleChange = (name: string, value: string) => {
         setUserData((prev) => {
+            switch (name) {
+                case "email":
+                    !REG_EX.test(value) ? setIsValid(false) : setIsValid(true);
+                    break;
+
+                case "password":
+                    value.length < 8 ? setIsValid(false) : setIsValid(true);
+                    break;
+            }
             return { ...prev, [name]: value };
         });
     };
+
     const handleOnSubmit = (event: SyntheticEvent) => {
         event.preventDefault();
-
-        if (!error) {
+        if (error) {
+            alert("Something went wrong");
+        }
+        if (!isValid) {
+            alert("Type correct data");
+        }
+        if (!error && isValid) {
             loginUser(userData.email, userData.password);
             createUser(userData.email, userData.password);
             changeIsLoggedIn(true);
@@ -41,6 +60,7 @@ export const LoginForm: FC = () => {
             router.push("/");
         }
     };
+
     return (
         <>
             <FormComponent
@@ -53,6 +73,8 @@ export const LoginForm: FC = () => {
                 onHandleChange={onHandleChange}
                 email={userData.email}
                 password={userData.password}
+                setIsValid={setIsValid}
+                disabled={!isValid}
             >
                 <CheckboxComponent text="Onthoud mij" marginTop={13}>
                     <Button>

@@ -14,14 +14,19 @@ const navItems = [
     { name: "Over Artikel.nl", link: "/#" },
     { name: "Login", link: "/login" },
     { name: "Registreren", link: "/register" },
+    { name: "Uitloggen", link: "" },
 ];
 export const Navigation: FC = () => {
     const router = useRouter();
-    const { isLoggedIn } = useContext(AuthContext);
-    const onHabdleClick = (link: string) => {
+    const { isLoggedIn, logOut } = useContext(AuthContext);
+    const onHabdleClick = (link: string, name: string) => {
         const condition = link === "/login" || link === "/register";
         if (condition && isLoggedIn) {
             return;
+        }
+        if (name === "Uitloggen") {
+            logOut();
+            router.push("/login");
         }
         router.push(link);
     };
@@ -37,7 +42,7 @@ export const Navigation: FC = () => {
                         {/* need to ask */}
                         {/* <Link href={link}>
                             <a> */}
-                        <Button onClick={() => onHabdleClick(link)}>
+                        <Button onClick={() => onHabdleClick(link, name)}>
                             <Label
                                 color={Colors.WHITE}
                                 fontSize={12}
