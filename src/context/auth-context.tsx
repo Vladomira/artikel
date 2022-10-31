@@ -1,13 +1,9 @@
 import React, { useState, PropsWithChildren, useEffect } from "react";
 import { AuthResponse } from "../models/response/AuthResponse";
 import { fetchCurrentUser } from "../services/auth/auth-get-current";
-import { fetchLoginUser, TokenData } from "../services/auth/auth-login";
-import { fetchRefreshUser } from "../services/auth/auth-refresh";
+import { fetchLoginUser } from "../services/auth/auth-login";
 import { fetchRegisterUser } from "../services/auth/auth-register";
-import {
-    clearAuthHeader,
-    setAuthHeader,
-} from "../utils/helpers/auth/auth-headeres";
+import { clearAuthHeader } from "../utils/helpers/auth/auth-headeres";
 import { setToLocalStorage } from "../utils/helpers/auth/set-to-localstorage";
 
 type User = {
@@ -92,7 +88,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     const registerUser = async (
         email: string,
         password: string
-    ): Promise<TokenData> => {
+    ): Promise<AuthResponse> => {
         try {
             const response = await fetchRegisterUser(email, password).catch(
                 (error) => {
@@ -122,6 +118,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
             setIsLoggedIn(false);
+            setUser({ email: "", password: "" });
             clearAuthHeader();
         } catch (error) {
             setError(ErrorsTypes.WRONG);
@@ -132,18 +129,12 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
     const getCurrentUser = async () => {
         changeIsLoading(true);
-        const getToken = localStorage.getItem("refreshToken");
+        const token = localStorage.getItem("accessToken");
+        if (!token) return;
 
-        if (getToken) {
-            const token = JSON.parse(getToken);
-
-            if (!token) return;
-
-            token && setAuthHeader(token);
-
+        if (token) {
             try {
                 const { data } = await fetchCurrentUser();
-
                 setIsLoggedIn(true);
                 setUser({ email: data.email, password: "" });
                 return data;
@@ -159,7 +150,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         const access = localStorage.getItem("accessToken");
         const refresh = localStorage.getItem("refreshToken");
         if (access || refresh) setIsLoggedIn(true);
-        getCurrentUser();
+        access && refresh && getCurrentUser();
     }, []);
 
     const createError = (str: string) => setError(str);

@@ -1,13 +1,8 @@
-import axios, { AxiosPromise, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { AuthResponse } from "../../models/response/AuthResponse";
 import apiInterceptor from "./interseptor";
 
 export const BASE_URL = process.env.NEXT_PUBLIC_DB;
-
-export type TokenData = {
-    accessToken: string | null;
-    refreshToken: string | null;
-};
 
 export const fetchLoginUser = (
     email: string,
