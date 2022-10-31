@@ -3,5 +3,5 @@ export interface FullUser {
     banner: null | string;
     email: null | string;
     username: null | string;
-    id: string;
+    id: number;
 }

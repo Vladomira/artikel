@@ -8,8 +8,17 @@ import { Header } from "../src/components/views/header";
 import { FooterInfo } from "../src/components/views/info-footer";
 import { LastArticles } from "../src/components/views/last-articles";
 import { PopularAuthors } from "../src/components/views/popular-authors";
+import { AuthContext } from "../src/context/auth-context";
 
 export default function Home({ chapters }) {
+    const { isLoggedIn } = useContext(AuthContext);
+    const router = useRouter();
+
+    useEffect(() => {
+        const token = localStorage.getItem("accessToken");
+        isLoggedIn || token ? router.push("/") : router.push("/login");
+    }, []);
+
     return (
         <>
             <Header />

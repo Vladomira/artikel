@@ -26,6 +26,7 @@ type ContextType = {
     logOut: () => void;
     error: string;
     createError: (prop: string) => void;
+    isLoading: boolean;
 };
 export const AuthContext = React.createContext<ContextType>({
     user: { email: "", password: "" }, //name: "",
@@ -37,6 +38,7 @@ export const AuthContext = React.createContext<ContextType>({
     logOut: () => {},
     error: "",
     createError: () => {},
+    isLoading: false,
 });
 const initUser = {
     // name: "Olio",
@@ -55,7 +57,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     const [user, setUser] = useState<User>(initUser);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
+    const changeIsLoading = (prop: boolean) => setIsLoading(prop);
     const createUser = (email: string, password: string) =>
         setUser({
             email,
@@ -115,8 +119,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
     const logOut = () => {
         try {
-            localStorage.setItem("accessToken", "");
-            localStorage.setItem("refreshToken", "");
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
             setIsLoggedIn(false);
             clearAuthHeader();
         } catch (error) {
@@ -125,42 +129,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
             alert((error as Error).message);
         }
     };
-    useEffect(() => {
-        const getRefresh = localStorage.getItem("refreshToken");
-
-        if (getRefresh) {
-            const refreshToken = JSON.parse(getRefresh);
-            refreshToken && getRefreshData(refreshToken);
-
-            const secondAccess = localStorage.getItem("accessToken");
-            const secondRefresh = localStorage.getItem("refreshToken");
-
-            if (secondAccess && secondRefresh) setIsLoggedIn(true);
-        }
-    }, []);
-
-    const getRefreshData = async (
-        refresh: string
-    ): Promise<TokenData | string> => {
-        if (!refresh) {
-            return ErrorsTypes.REFRESH;
-        }
-
-        try {
-            const { data } = await fetchRefreshUser(refresh);
-            const { accessToken, refreshToken } = data;
-
-            if (accessToken && refreshToken) setIsLoggedIn(true);
-
-            setToLocalStorage("accessToken", accessToken);
-            setToLocalStorage("refreshToken", refreshToken);
-            return data;
-        } catch (error) {
-            return (error as Error).message || "Something went wrong";
-        }
-    };
 
     const getCurrentUser = async () => {
+        changeIsLoading(true);
         const getToken = localStorage.getItem("refreshToken");
 
         if (getToken) {
@@ -172,11 +143,14 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
             try {
                 const { data } = await fetchCurrentUser();
+
                 setIsLoggedIn(true);
                 setUser({ email: data.email, password: "" });
                 return data;
             } catch (error) {
                 return error.message;
+            } finally {
+                changeIsLoading(false);
             }
         }
     };
@@ -202,6 +176,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
                 logOut,
                 error,
                 createError,
+                isLoading,
             }}
         >
             {children}
