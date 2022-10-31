@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { WrapperBox } from "../../wrapper-box";
 import { Navigation } from "./navigation-list";
 import { SocialLinks } from "../../social-links";
@@ -10,9 +10,12 @@ import { ChapterNavigation } from "./chapter-navigation";
 import { StyledHeader } from "./header.styles";
 import { Colors } from "../../../utils/colors";
 import { HotThems } from "./chapter-navigation/hot-thems";
+import { Label } from "../../label";
+import { AuthContext } from "../../../context/auth-context";
 
 export const Header = () => {
     const [isScroll, setIsScroll] = useState(false);
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         const handleScroll = (event) => {
@@ -46,6 +49,24 @@ export const Header = () => {
                     justifyContent="end"
                 >
                     <LogoBox />
+                    {user.email && (
+                        <WrapperBox
+                            position="absolute"
+                            left="100px"
+                            top="5px"
+                            marginBottom={10}
+                            padding="0px 3px"
+                            background="radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);"
+                        >
+                            <Label
+                                color={Colors.BLACK}
+                                fontSize={18}
+                                fontWeight={700}
+                                lineHeight={""}
+                                text={`Hello, ${user.email}`}
+                            />
+                        </WrapperBox>
+                    )}
                     <WrapperBox
                         padding="0px 16px"
                         mediaHidden={MediaScreen.MOBILE}

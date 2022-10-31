@@ -22,8 +22,8 @@ export type ChapterListProps = {
     chapters: ChapterItem[];
 };
 type ContextType = {
-    chapters: Partial<ChapterItem[]>;
-    getChapters: (chapters: Partial<ChapterItem[]>) => void;
+    chapters: ChapterItem[];
+    getChapters: (chapters: ChapterItem[]) => void;
 };
 export const ChapterContext = React.createContext<ContextType>({
     chapters: [],
@@ -33,8 +33,7 @@ export const ChapterContext = React.createContext<ContextType>({
 export const ChaptersProvider = ({ children }: PropsWithChildren) => {
     const [chapters, setChapters] = useState<ChapterItem[]>([]);
 
-    const getChapters = (chapters: Partial<ChapterItem[]>) =>
-        setChapters(chapters);
+    const getChapters = (chapters: ChapterItem[]) => setChapters(chapters);
 
     return (
         <ChapterContext.Provider

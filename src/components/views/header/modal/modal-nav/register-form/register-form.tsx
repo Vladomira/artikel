@@ -9,6 +9,7 @@ import { AuthContext } from "../../../../../../context/auth-context";
 import { initialUserData, UserDataProps } from "../modal-login/login-form";
 import { useRouter } from "next/router";
 import { REG_EX } from "../../../../../../utils/form-error";
+import { Label } from "../../../../../label";
 
 type UserNameProps = {
     name: string;
@@ -17,8 +18,14 @@ type UserNameProps = {
 
 export const RegisterForm: FC = () => {
     const router = useRouter();
-    const { error, registerUser, isLoggedIn, createUser, changeIsLoggedIn } =
-        useContext(AuthContext);
+    const {
+        error,
+        registerUser,
+        createError,
+        isLoggedIn,
+        createUser,
+        changeIsLoggedIn,
+    } = useContext(AuthContext);
     const [userData, setUserData] = useState<UserDataProps>(initialUserData);
     const [userName, setUserName] = useState<UserNameProps>({
         name: "",
@@ -31,6 +38,7 @@ export const RegisterForm: FC = () => {
     }, [isLoggedIn]);
 
     const onHandleChange = (name: string, value: string) => {
+        createError("");
         setUserData((prev) => {
             switch (name) {
                 case "email":
@@ -48,18 +56,21 @@ export const RegisterForm: FC = () => {
     const handleOnSubmit = (event: SyntheticEvent) => {
         event.preventDefault();
         if (error) {
-            alert("Something went wrong");
+            createError("Something went wrong");
         }
         if (!isValid) {
-            alert("Type correct data");
+            createError("Type correct data");
         }
         if (!error && isValid) {
-            registerUser(userData.email, userData.password);
-            createUser(userData.email, userData.password);
-
-            setUserData(initialUserData);
-            changeIsLoggedIn(true);
-            router.push("/");
+            return registerUser(userData.email, userData.password)
+                .then((result) => {
+                    if (result !== undefined) {
+                        createUser(userData.email, userData.password);
+                        setUserData(initialUserData);
+                        changeIsLoggedIn(true);
+                    }
+                })
+                .catch((error) => createError(error));
         }
     };
     return (
@@ -136,6 +147,17 @@ export const RegisterForm: FC = () => {
                     text="Ik wil mij aanmelden bij de nieuwsbrief."
                     marginTop={13}
                 />
+
+                {error && (
+                    <Label
+                        color={Colors.CARROT}
+                        fontSize={14}
+                        fontWeight={400}
+                        lineHeight={"1.4"}
+                        text={error}
+                        marginTop={30}
+                    />
+                )}
             </FormComponent>
         </>
     );

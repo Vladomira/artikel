@@ -20,8 +20,15 @@ export const initialUserData: UserDataProps = {
 
 export const LoginForm: FC = () => {
     const router = useRouter();
-    const { error, loginUser, createUser, changeIsLoggedIn, isLoggedIn } =
-        useContext(AuthContext);
+    const {
+        error,
+        createError,
+        loginUser,
+        createUser,
+        changeIsLoggedIn,
+        isLoggedIn,
+        user,
+    } = useContext(AuthContext);
     const [userData, setUserData] = useState<UserDataProps>(initialUserData);
     const [isValid, setIsValid] = useState(false);
 
@@ -30,6 +37,7 @@ export const LoginForm: FC = () => {
     }, [isLoggedIn]);
 
     const onHandleChange = (name: string, value: string) => {
+        createError("");
         setUserData((prev) => {
             switch (name) {
                 case "email":
@@ -46,18 +54,21 @@ export const LoginForm: FC = () => {
 
     const handleOnSubmit = (event: SyntheticEvent) => {
         event.preventDefault();
-        if (error) {
-            alert("Something went wrong");
-        }
+
         if (!isValid) {
-            alert("Type correct data");
+            createError("Type valid data");
         }
         if (!error && isValid) {
-            loginUser(userData.email, userData.password);
-            createUser(userData.email, userData.password);
-            changeIsLoggedIn(true);
-            setUserData(initialUserData);
-            router.push("/");
+            return loginUser(userData.email, userData.password).then(
+                (result) => {
+                    if (result) {
+                        createUser(userData.email, userData.password);
+                        setUserData(initialUserData);
+                        changeIsLoggedIn(true);
+                        router.push("/");
+                    }
+                }
+            );
         }
     };
 
@@ -100,10 +111,20 @@ export const LoginForm: FC = () => {
                         fontWeight={300}
                         lineHeight={"1.4"}
                         text={"Registreer"}
-                        marginLeft={7}
+                        marginTop={7}
                         cursor="pointer"
                     />
                 </WrapperBox>
+                {error && (
+                    <Label
+                        color={Colors.CARROT}
+                        fontSize={14}
+                        fontWeight={400}
+                        lineHeight={"1.4"}
+                        text={error}
+                        marginTop={30}
+                    />
+                )}
             </FormComponent>
         </>
     );

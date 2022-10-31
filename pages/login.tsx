@@ -15,52 +15,6 @@ export default function Login() {
             <WrapperBox width="100%" maxWidth={1160} justifyContent="center">
                 <LoginForm />
             </WrapperBox>
-            {/* <FormComponent
-                submitText={"Login"}
-                buttonBack={Colors.WHITE}
-                title="Login"
-                marginInputTop={13}
-                titleBottom={33}
-            >
-                <CheckboxComponent text="Onthoud mij" marginTop={13}>
-                    <Button>
-                        <Label
-                            color={Colors.WHITE}
-                            fontSize={12}
-                            fontWeight={300}
-                            lineHeight={"1.4"}
-                            text={"Wachtwoord vergeten?"}
-                            marginLeft={7}
-                            textDecoration="underline"
-                            cursor="pointer"
-                        />
-                    </Button>
-                </CheckboxComponent>
-            </FormComponent> */}
         </Section>
     );
 }
-// export const getServerSideProps = async (): Promise<{
-//     props: {
-//         chapters: {};
-//         error?: string;
-//     };
-// }> => {
-//     try {
-//         const { data } = await fetchBottomChapters();
-
-//         return {
-//             props: {
-//                 chapters: data,
-//                 error: "",
-//             },
-//         };
-//     } catch (error) {
-//         return {
-//             props: {
-//                 chapters: {},
-//                 error: (error as Error).message || "Something went wrong",
-//             },
-//         };
-//     }
-// };
