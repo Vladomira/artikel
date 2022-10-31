@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useContext, useEffect, useState } from "react";
+import { FC, SyntheticEvent, useContext, useState } from "react";
 import { CheckboxComponent } from "../../../../../form/checkbox";
 import { FormComponent } from "../../../../../form";
 import { Colors } from "../../../../../../utils/colors";
@@ -33,10 +33,6 @@ export const RegisterForm: FC = () => {
     });
     const [isValid, setIsValid] = useState(false);
 
-    useEffect(() => {
-        isLoggedIn && router.push("/");
-    }, [isLoggedIn]);
-
     const onHandleChange = (name: string, value: string) => {
         createError("");
         setUserData((prev) => {
@@ -68,11 +64,13 @@ export const RegisterForm: FC = () => {
                         createUser(userData.email, userData.password);
                         setUserData(initialUserData);
                         changeIsLoggedIn(true);
+                        router.push("/");
                     }
                 })
                 .catch((error) => createError(error));
         }
     };
+
     return (
         <>
             <FormComponent

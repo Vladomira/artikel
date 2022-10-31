@@ -1,12 +1,9 @@
 import React, { useState, PropsWithChildren, useEffect } from "react";
-import {
-    fetchCurrentUser,
-    FullUserData,
-} from "../services/auth/auth-get-current";
+import { AuthResponse } from "../models/response/AuthResponse";
+import { fetchCurrentUser } from "../services/auth/auth-get-current";
 import { fetchLoginUser, TokenData } from "../services/auth/auth-login";
 import { fetchRefreshUser } from "../services/auth/auth-refresh";
 import { fetchRegisterUser } from "../services/auth/auth-register";
-import { toMakeRefresh } from "../services/auth/refresh";
 import {
     clearAuthHeader,
     setAuthHeader,
@@ -64,7 +61,11 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
             email,
             password,
         });
-    const loginUser = async (email: string, password: string): Promise<any> => {
+
+    const loginUser = async (
+        email: string,
+        password: string
+    ): Promise<AuthResponse> => {
         const response = await fetchLoginUser(email, password).catch(
             (error) => {
                 setError(ErrorsTypes.LOGIN);
@@ -72,13 +73,10 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
                 return error;
             }
         );
-
         if (response.data !== undefined) {
             const { accessToken, refreshToken } = response.data;
-
             setToLocalStorage("accessToken", accessToken);
             setToLocalStorage("refreshToken", refreshToken);
-            setAuthHeader(response.data.accessToken);
             setIsLoggedIn(true);
             return response.data;
         }
@@ -102,7 +100,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
             if (response.data !== undefined) {
                 const { accessToken, refreshToken } = response.data;
-                setAuthHeader(response.data.accessToken);
 
                 setToLocalStorage("accessToken", accessToken);
                 setToLocalStorage("refreshToken", refreshToken);
@@ -153,7 +150,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
             const { data } = await fetchRefreshUser(refresh);
             const { accessToken, refreshToken } = data;
 
-            setAuthHeader(accessToken);
             if (accessToken && refreshToken) setIsLoggedIn(true);
 
             setToLocalStorage("accessToken", accessToken);
@@ -165,14 +161,14 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     };
 
     const getCurrentUser = async () => {
-        const getAccess = localStorage.getItem("refreshToken");
+        const getToken = localStorage.getItem("refreshToken");
 
-        if (getAccess) {
-            const accessToken = JSON.parse(getAccess);
+        if (getToken) {
+            const token = JSON.parse(getToken);
 
-            if (!accessToken) return;
+            if (!token) return;
 
-            accessToken && setAuthHeader(accessToken);
+            token && setAuthHeader(token);
 
             try {
                 const { data } = await fetchCurrentUser();

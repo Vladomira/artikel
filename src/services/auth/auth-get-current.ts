@@ -1,12 +1,11 @@
 import axios, { AxiosPromise } from "axios";
+import { FullUser } from "../../models/response/FullUser";
 import { BASE_URL } from "./auth-login";
+import apiInterceptor from "./interseptor";
 
-export type FullUserData = {
-    avatar: null | string;
-    banner: null | string;
-    email: null | string;
-    username: null | string;
-};
-export const fetchCurrentUser = (): AxiosPromise<FullUserData> => {
+export const fetchCurrentUser = (): Promise<AxiosPromise<FullUser>> => {
     return axios.get(`${BASE_URL}/user/me`);
 };
+// export const fetchCurrentUser = (): Promise<AxiosPromise<FullUser>> => {
+//     return apiInterceptor.get(`${BASE_URL}/user/me`);
+// };

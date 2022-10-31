@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useContext, useEffect, useState } from "react";
+import { FC, SyntheticEvent, useContext, useState } from "react";
 import { Colors } from "../../../../../../utils/colors";
 import { CheckboxComponent } from "../../../../../form/checkbox";
 import { Button } from "../../../../../button/button";
@@ -20,21 +20,10 @@ export const initialUserData: UserDataProps = {
 
 export const LoginForm: FC = () => {
     const router = useRouter();
-    const {
-        error,
-        createError,
-        loginUser,
-        createUser,
-        changeIsLoggedIn,
-        isLoggedIn,
-        user,
-    } = useContext(AuthContext);
+    const { error, createError, loginUser, createUser, changeIsLoggedIn } =
+        useContext(AuthContext);
     const [userData, setUserData] = useState<UserDataProps>(initialUserData);
     const [isValid, setIsValid] = useState(false);
-
-    useEffect(() => {
-        isLoggedIn && router.push("/");
-    }, [isLoggedIn]);
 
     const onHandleChange = (name: string, value: string) => {
         createError("");
