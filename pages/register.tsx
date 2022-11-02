@@ -12,7 +12,12 @@ export default function Register() {
             height="100%"
             background={Colors.BROWN_BLACK}
         >
-            <WrapperBox width="100%" maxWidth={1160} justifyContent="center">
+            <WrapperBox
+                width="100%"
+                maxWidth={1160}
+                justifyContent="center"
+                margin="auto"
+            >
                 <RegisterForm />
             </WrapperBox>
         </Section>

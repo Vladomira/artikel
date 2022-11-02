@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { AuthResponse } from "../../models/response/AuthResponse";
 import { setToLocalStorage } from "../../utils/helpers/auth/set-to-localstorage";
-import { BASE_URL } from "./auth-login";
+import { BASE_URL } from "./auth-service";
 
 const apiInterceptor = axios.create({
     withCredentials: true,
@@ -22,7 +22,7 @@ apiInterceptor.interceptors.response.use(
     async (error) => {
         const originalRequest = error.config;
         if (
-            error.response.status >= 401 &&
+            error.response.status === 403 &&
             error.config &&
             !error.config._isRetry
         ) {
@@ -42,7 +42,7 @@ apiInterceptor.interceptors.response.use(
 
                 return apiInterceptor.request(originalRequest);
             } catch (error) {
-                console.log("Unauthorized", error);
+                error.message;
             }
         }
         throw error;

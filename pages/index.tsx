@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import { fetchBottomChapters } from "../src/api/chapters-bottom-request";
+import PreloaderSpin from "../src/components/preloader-spin";
 import { ActualArticles } from "../src/components/views/actual-articles";
 import { ArtSection } from "../src/components/views/art-section";
 import { BottomNav } from "../src/components/views/bottom-navigation";
@@ -13,11 +14,15 @@ import { AuthContext } from "../src/context/auth-context";
 export default function Home({ chapters }) {
     const { isLoggedIn } = useContext(AuthContext);
     const router = useRouter();
-
     useEffect(() => {
         const token = localStorage.getItem("accessToken");
+
         isLoggedIn || token ? router.push("/") : router.push("/login");
     }, []);
+
+    if (!isLoggedIn) {
+        return <PreloaderSpin />;
+    }
 
     return (
         <>

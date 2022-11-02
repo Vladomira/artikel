@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useContext, useState } from "react";
+import { FC, SyntheticEvent, useContext, useEffect } from "react";
 import { Colors } from "../../../../../../utils/colors";
 import { CheckboxComponent } from "../../../../../form/checkbox";
 import { Button } from "../../../../../button/button";
@@ -7,7 +7,7 @@ import { FormComponent } from "../../../../../form";
 import { AuthContext } from "../../../../../../context/auth-context";
 import { useRouter } from "next/router";
 import { WrapperBox } from "../../../../../wrapper-box";
-import { REG_EX } from "../../../../../../utils/form-error";
+import useRrgisterForm from "../../../../../hooks/useForm";
 
 export type UserDataProps = {
     email: string;
@@ -19,48 +19,33 @@ export const initialUserData: UserDataProps = {
 };
 
 export const LoginForm: FC = () => {
+    const { onHandleChange, userData, setIsValid, isValid } = useRrgisterForm();
     const router = useRouter();
-    const { error, createError, loginUser, createUser, changeIsLoggedIn } =
+    const { error, createError, isLoggedIn, loginUser, changeIsLoggedIn } =
         useContext(AuthContext);
-    const [userData, setUserData] = useState<UserDataProps>(initialUserData);
-    const [isValid, setIsValid] = useState(false);
-
-    const onHandleChange = (name: string, value: string) => {
-        createError("");
-        setUserData((prev) => {
-            switch (name) {
-                case "email":
-                    !REG_EX.test(value) ? setIsValid(false) : setIsValid(true);
-                    break;
-
-                case "password":
-                    value.length < 8 ? setIsValid(false) : setIsValid(true);
-                    break;
-            }
-            return { ...prev, [name]: value };
-        });
-    };
 
     const handleOnSubmit = (event: SyntheticEvent) => {
         event.preventDefault();
-
+        if (error) {
+            createError(error);
+            return;
+        }
         if (!isValid) {
             createError("Type valid data");
+            return;
         }
+
         if (!error && isValid) {
-            return loginUser(userData.email, userData.password).then(
-                (result) => {
-                    if (result) {
-                        createUser(userData.email, userData.password);
-                        setUserData(initialUserData);
-                        changeIsLoggedIn(true);
-                        router.push("/");
-                    }
-                }
-            );
+            try {
+                loginUser(userData.email, userData.password);
+            } catch (error) {
+                createError(error);
+            }
         }
     };
-
+    useEffect(() => {
+        isLoggedIn && router.push("/");
+    }, [isLoggedIn]);
     return (
         <>
             <FormComponent

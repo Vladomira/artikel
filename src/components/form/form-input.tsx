@@ -1,7 +1,8 @@
-import React, { PropsWithChildren, useState } from "react";
+import React, { PropsWithChildren, useState, useContext } from "react";
 import { InputLabelProps, FloatingLabel } from "./floating-label";
 import { FloatingInput, InputBoxItem } from "./floatin-input.styles";
 import { Errors, REG_EX } from "../../utils/form-error";
+import { AuthContext } from "../../context/auth-context";
 
 type TextInputProps = {
     name: string;
@@ -28,6 +29,7 @@ export const InputWithFloatingLabel = ({
     setIsValid,
     ...otherProps
 }: PropsWithChildren<TextInputProps & InputLabelProps>) => {
+    const { error, createError } = useContext(AuthContext);
     const [active, setActive] = useState(false);
     const onBlur = (name: string, value: string) => {
         value !== "" && value ? setActive(true) : setActive(false);
@@ -35,13 +37,13 @@ export const InputWithFloatingLabel = ({
         switch (name) {
             case "email":
                 !REG_EX.test(value)
-                    ? (alert(Errors.EMAIL), setIsValid(false))
+                    ? (createError(Errors.EMAIL), setIsValid(false))
                     : setIsValid(true);
                 break;
 
             case "password":
                 value.length < 8
-                    ? (alert(Errors.PASSWORD), setIsValid(false))
+                    ? (createError(Errors.PASSWORD), setIsValid(false))
                     : setIsValid(true);
                 break;
         }

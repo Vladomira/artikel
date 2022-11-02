@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useContext, useState } from "react";
+import { FC, SyntheticEvent, useContext, useEffect, useState } from "react";
 import { CheckboxComponent } from "../../../../../form/checkbox";
 import { FormComponent } from "../../../../../form";
 import { Colors } from "../../../../../../utils/colors";
@@ -6,10 +6,9 @@ import { StyledParagraph } from "../../../../../paragraph/paragraph.styles";
 import { LinkComponent } from "../../../../../link";
 import { InputWithFloatingLabel } from "../../../../../form/form-input";
 import { AuthContext } from "../../../../../../context/auth-context";
-import { initialUserData, UserDataProps } from "../modal-login/login-form";
-import { useRouter } from "next/router";
-import { REG_EX } from "../../../../../../utils/form-error";
 import { Label } from "../../../../../label";
+import useRrgisterForm from "../../../../../hooks/useForm";
+import { useRouter } from "next/router";
 
 type UserNameProps = {
     name: string;
@@ -17,32 +16,24 @@ type UserNameProps = {
 };
 
 export const RegisterForm: FC = () => {
-    const router = useRouter();
-    const {
-        error,
-        registerUser,
-        createError,
-        isLoggedIn,
-        createUser,
-        changeIsLoggedIn,
-    } = useContext(AuthContext);
-    const [userData, setUserData] = useState<UserDataProps>(initialUserData);
+    const { onHandleChange, userData, setIsValid, isValid } = useRrgisterForm();
+    const { error, registerUser, createError, isLoggedIn, changeIsLoggedIn } =
+        useContext(AuthContext);
     const [userName, setUserName] = useState<UserNameProps>({
         name: "",
         surname: "",
     });
-    const [isValid, setIsValid] = useState(false);
-
-    const onHandleChange = (name: string, value: string) => {
+    const router = useRouter();
+    const onHandleChangeName = (name: string, value: string) => {
         createError("");
-        setUserData((prev) => {
+        setUserName((prev) => {
             switch (name) {
-                case "email":
-                    !REG_EX.test(value) ? setIsValid(false) : setIsValid(true);
+                case "name":
+                    value.length < 2 ? setIsValid(false) : setIsValid(true);
                     break;
 
-                case "password":
-                    value.length < 8 ? setIsValid(false) : setIsValid(true);
+                case "surname":
+                    value.length < 2 ? setIsValid(false) : setIsValid(true);
                     break;
             }
             return { ...prev, [name]: value };
@@ -53,23 +44,24 @@ export const RegisterForm: FC = () => {
         event.preventDefault();
         if (error) {
             createError("Something went wrong");
+            return;
         }
         if (!isValid) {
             createError("Type correct data");
+            return;
         }
         if (!error && isValid) {
-            return registerUser(userData.email, userData.password)
-                .then((result) => {
-                    if (result !== undefined) {
-                        createUser(userData.email, userData.password);
-                        setUserData(initialUserData);
-                        changeIsLoggedIn(true);
-                        router.push("/");
-                    }
-                })
-                .catch((error) => createError(error));
+            try {
+                registerUser(userData.email, userData.password);
+            } catch (error) {
+                changeIsLoggedIn(false);
+                createError(error);
+            }
         }
     };
+    useEffect(() => {
+        isLoggedIn && router.push("/");
+    }, [isLoggedIn]);
 
     return (
         <>
@@ -87,20 +79,20 @@ export const RegisterForm: FC = () => {
                 disabled={!isValid}
             >
                 <InputWithFloatingLabel
-                    name={userName.name}
+                    name={"name"}
                     labelText={"Voornaam"}
                     value={userName.name}
-                    onHandleChange={onHandleChange}
+                    onHandleChange={onHandleChangeName}
                     type="text"
                     activeColor={Colors.ORANGE}
                     marginTop={6}
                     setIsValid={setIsValid}
                 />
                 <InputWithFloatingLabel
-                    name={userName.surname}
+                    name={"surname"}
                     labelText={"Achternaam"}
                     value={userName.surname}
-                    onHandleChange={onHandleChange}
+                    onHandleChange={onHandleChangeName}
                     type="text"
                     activeColor={Colors.ORANGE}
                     marginTop={6}
