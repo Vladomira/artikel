@@ -1,4 +1,5 @@
 import { FC, useContext, useEffect, useState } from "react";
+import { fetchChapter } from "../../../../../api/fetch-chapters";
 import {
     ChapterContext,
     ChapterInfo,
@@ -37,24 +38,8 @@ export const DropDownChapters: FC<DropDownProps> = ({ setIsClicked }) => {
     const [isOpenInfo, setIsOpenInfo] = useState(false);
 
     useEffect(() => {
-        fetchChapter();
+        fetchChapter().then((res) => getChapters(res));
     }, []);
-    useEffect(() => {
-        getChapters(chaptersData);
-    }, [chaptersData]);
-
-    const fetchChapter = async () => {
-        try {
-            // const response = await fetch(`${process.env.API_HOST}/chapters/`);  need to change
-            const response = await fetch("http://localhost:3000/api/chapters");
-            const data = await response.json();
-
-            setChaptersData(data);
-        } catch (error) {
-            (error as Error).message || "Something went wrong";
-        }
-    };
-
     return (
         <>
             <WrapperBox

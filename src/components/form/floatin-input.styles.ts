@@ -8,6 +8,7 @@ type InputWrapperProps = { boxwidth: string };
 
 export const InputBoxItem = styled(Form.Item)<InputWrapperProps>`
     width: ${({ boxwidth }) => (boxwidth ? boxwidth : "")};
+    margin-bottom: 0px;
 `;
 
 type StyledLabelProps = {
@@ -44,6 +45,7 @@ export const FloatingLabelStyled = styled.label<StyledLabelProps>`
             return `color:${Colors.BLUE}`;
         }
     }}
+
     @media (${MediaScreen.MOBILE}) {
         left: 0px;
     }

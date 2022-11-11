@@ -1,13 +1,16 @@
+import { AuthProvider } from "../src/context/auth-context";
 import { ChaptersProvider } from "../src/context/chapters-context";
 import { GlobalStyle } from "../styles/global-style";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     return (
         <>
             <GlobalStyle />
-            <ChaptersProvider>
-                <Component {...pageProps} />
-            </ChaptersProvider>
+            <AuthProvider>
+                <ChaptersProvider>
+                    <Component {...pageProps} />
+                </ChaptersProvider>{" "}
+            </AuthProvider>
         </>
     );
 }

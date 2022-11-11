@@ -1,20 +1,12 @@
-import { PropsWithChildren, useState } from "react";
-import { Form } from "antd";
+import { PropsWithChildren, SyntheticEvent, useContext, useState } from "react";
 import { InputWithFloatingLabel } from "./form-input";
 import { WrapperBox } from "../wrapper-box";
 import { EyeIcon } from "./form-eye";
 import { Colors } from "../../utils/colors";
 import { SubmitButton } from "../submit-button";
 import { Title } from "../title";
+import { StyledPureForm } from "./pure-form.styles";
 
-type UserDataProps = {
-    email: string;
-    password: string;
-};
-const initialData: UserDataProps = {
-    email: "",
-    password: "",
-};
 type FormComponentProps = {
     submitText: string;
     title?: string;
@@ -22,6 +14,12 @@ type FormComponentProps = {
     marginButtonTop?: number;
     marginInputTop: number;
     titleBottom?: number;
+    email: string;
+    password: string;
+    handleOnSubmit: (event: SyntheticEvent) => void;
+    onHandleChange: (name: string, value: string) => void;
+    setIsValid: (prop: boolean) => void;
+    disabled?: boolean;
 };
 
 export const FormComponent = ({
@@ -31,18 +29,18 @@ export const FormComponent = ({
     marginButtonTop,
     marginInputTop,
     titleBottom,
+    handleOnSubmit,
+    onHandleChange,
+    email,
+    password,
+    setIsValid,
+    disabled,
 }: PropsWithChildren<FormComponentProps>) => {
-    const [userData, setUserData] = useState<UserDataProps>(initialData);
     const [visiblePassword, setVisiblePassword] = useState(false);
-    const onHandleChange = (name: string, value: string) => {
-        setUserData((prev) => {
-            return { ...prev, [name]: value };
-        });
-    };
 
     return (
         <>
-            <Form>
+            <StyledPureForm onSubmit={handleOnSubmit}>
                 {title && (
                     <Title
                         color={Colors.WHITE}
@@ -60,18 +58,20 @@ export const FormComponent = ({
                 <InputWithFloatingLabel
                     name="email"
                     labelText={"E-mail"}
-                    value={userData.email}
+                    value={email}
                     onHandleChange={onHandleChange}
                     type="email"
+                    setIsValid={setIsValid}
                 />
 
                 <InputWithFloatingLabel
                     name="password"
                     labelText={"Wachtwoord"}
                     onHandleChange={onHandleChange}
-                    value={userData.password}
+                    value={password}
                     type={visiblePassword ? "text" : "password"}
                     marginTop={marginInputTop}
+                    setIsValid={setIsValid}
                 >
                     <WrapperBox
                         onClick={() => setVisiblePassword(!visiblePassword)}
@@ -88,10 +88,11 @@ export const FormComponent = ({
                 {children}
 
                 <SubmitButton
+                    disabled={disabled}
                     text={submitText}
                     marginTop={marginButtonTop ? marginButtonTop : 48}
                 />
-            </Form>
+            </StyledPureForm>
         </>
     );
 };

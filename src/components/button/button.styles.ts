@@ -32,7 +32,11 @@ export const ButtonStyled = styled.button<ButtonProps>`
     background: ${({ background }) =>
         background ? `${background}` : "transparent"};
     color: ${({ color }): string => color || ""};
-    z-index:${({ zIndex }) => zIndex || null}
+    z-index: ${({ zIndex }) => zIndex || null};
+    &:disabled {
+        opacity: 0.5;
+        background: teal;
+    }
 
     transition: all 200ms cubic-bezier(0.17, 0.67, 0.83, 0.67);
 

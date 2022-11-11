@@ -6,7 +6,6 @@ import { StyledPureForm } from "../../../form/pure-form.styles";
 export const BottomForm = styled(StyledPureForm)`
     display: flex;
     align-items: end;
-
     @media (${MediaScreen.MOBILE}) {
         flex-direction: column;
         width: 100%;

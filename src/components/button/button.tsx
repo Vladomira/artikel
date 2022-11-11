@@ -30,6 +30,7 @@ export type ButtonProps = {
     type?: "button" | "reset" | "submit";
     onClick?: () => void;
     zIndex?: number;
+    disabled?: boolean;
 };
 export const Button = ({
     border,
@@ -59,6 +60,7 @@ export const Button = ({
     color,
     hoverColor,
     zIndex,
+    disabled,
 }: PropsWithChildren<ButtonProps>) => {
     return (
         <ButtonStyled
@@ -88,6 +90,7 @@ export const Button = ({
             margin={margin}
             top={top}
             right={right}
+            disabled={disabled}
         >
             {children}
         </ButtonStyled>

@@ -7,11 +7,13 @@ type SubmitButtonProps = {
     backColor?: string;
     text: string;
     marginTop?: number;
+    disabled?: boolean;
 };
 export const SubmitButton: FC<SubmitButtonProps> = ({
     backColor,
     text,
     marginTop,
+    disabled,
 }) => {
     return (
         <Button
@@ -20,7 +22,7 @@ export const SubmitButton: FC<SubmitButtonProps> = ({
             background={backColor || Colors.WHITE}
             marginTop={marginTop || 28}
             width="100%"
-            type="submit"
+            disabled={disabled}
         >
             <Label
                 color={Colors.BLACK}

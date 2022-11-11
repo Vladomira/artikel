@@ -1,10 +1,14 @@
-import { FC, useState } from "react";
+import { FC, SyntheticEvent, useContext, useEffect, useState } from "react";
 import { CheckboxComponent } from "../../../../../form/checkbox";
 import { FormComponent } from "../../../../../form";
 import { Colors } from "../../../../../../utils/colors";
 import { StyledParagraph } from "../../../../../paragraph/paragraph.styles";
 import { LinkComponent } from "../../../../../link";
 import { InputWithFloatingLabel } from "../../../../../form/form-input";
+import { AuthContext } from "../../../../../../context/auth-context";
+import { Label } from "../../../../../label";
+import useRrgisterForm from "../../../../../hooks/useForm";
+import { useRouter } from "next/router";
 
 type UserNameProps = {
     name: string;
@@ -12,15 +16,60 @@ type UserNameProps = {
 };
 
 export const RegisterForm: FC = () => {
+    const { onHandleChange, userData, setIsValid, isValid } = useRrgisterForm();
+    const { error, registerUser, createError, isLoggedIn, changeIsLoggedIn } =
+        useContext(AuthContext);
     const [userName, setUserName] = useState<UserNameProps>({
         name: "",
         surname: "",
     });
-    const onHandleChange = (name: string, value: string) => {
+    const router = useRouter();
+    const onHandleChangeName = (name: string, value: string) => {
+        createError("");
         setUserName((prev) => {
+            switch (name) {
+                case "name":
+                    value.length < 2 ? setIsValid(false) : setIsValid(true);
+                    break;
+
+                case "surname":
+                    value.length < 2 ? setIsValid(false) : setIsValid(true);
+                    break;
+            }
             return { ...prev, [name]: value };
         });
     };
+
+    const handleOnSubmit = (event: SyntheticEvent) => {
+        event.preventDefault();
+        if (error) {
+            createError("Something went wrong");
+            return;
+        }
+        if (!isValid) {
+            createError("Type correct data");
+            return;
+        }
+        if (!error && isValid) {
+            router.push("/");
+            changeIsLoggedIn(true);
+        }
+
+        // db on
+        // if (!error && isValid) {
+        //     try {
+        //         registerUser(userData.email, userData.password);
+        //     } catch (error) {
+        //         changeIsLoggedIn(false);
+        //         createError(error);
+        //     }
+        // }
+    };
+    // db on
+    // useEffect(() => {
+    //     isLoggedIn && router.push("/");
+    // }, [isLoggedIn]);
+
     return (
         <>
             <FormComponent
@@ -29,24 +78,32 @@ export const RegisterForm: FC = () => {
                 title={"Registreer"}
                 marginInputTop={6}
                 titleBottom={11}
+                handleOnSubmit={handleOnSubmit}
+                onHandleChange={onHandleChange}
+                email={userData.email}
+                password={userData.password}
+                setIsValid={setIsValid}
+                disabled={!isValid}
             >
                 <InputWithFloatingLabel
-                    name={userName.name}
+                    name={"name"}
                     labelText={"Voornaam"}
                     value={userName.name}
-                    onHandleChange={onHandleChange}
+                    onHandleChange={onHandleChangeName}
                     type="text"
                     activeColor={Colors.ORANGE}
                     marginTop={6}
+                    setIsValid={setIsValid}
                 />
                 <InputWithFloatingLabel
-                    name={userName.surname}
+                    name={"surname"}
                     labelText={"Achternaam"}
                     value={userName.surname}
-                    onHandleChange={onHandleChange}
+                    onHandleChange={onHandleChangeName}
                     type="text"
                     activeColor={Colors.ORANGE}
                     marginTop={6}
+                    setIsValid={setIsValid}
                 />
                 <CheckboxComponent marginTop={13}>
                     <StyledParagraph
@@ -87,6 +144,17 @@ export const RegisterForm: FC = () => {
                     text="Ik wil mij aanmelden bij de nieuwsbrief."
                     marginTop={13}
                 />
+
+                {error && (
+                    <Label
+                        color={Colors.CARROT}
+                        fontSize={14}
+                        fontWeight={400}
+                        lineHeight={"1.4"}
+                        text={error}
+                        marginTop={30}
+                    />
+                )}
             </FormComponent>
         </>
     );

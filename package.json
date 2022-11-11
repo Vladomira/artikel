@@ -11,8 +11,11 @@
   "dependencies": {
     "antd": "^4.23.6",
     "axios": "^0.27.2",
+    "axios-auth-refresh": "^3.3.4",
+    "cookie": "^0.5.0",
     "embla-carousel-react": "^7.0.3",
     "next": "12.3.1",
+    "next-auth": "^4.15.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "styled-components": "^5.3.6"

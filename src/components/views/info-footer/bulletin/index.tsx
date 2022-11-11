@@ -26,7 +26,7 @@ export const Bulletin: FC = () => {
                         name={"email"}
                         labelText={"E-mail"}
                         value={email}
-                        onHandleChange={onHandleChange}
+                        onHandleChange={() => onHandleChange}
                         type="text"
                         activeColor={Colors.WHITE}
                         boxwidth="100%"

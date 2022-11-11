@@ -26,8 +26,8 @@ export const MobileBottomNavSection: FC<BottomNavProps> = ({
                     swipeToSlide
                     infinite={false}
                 >
-                    {chapters &&
-                        chapters.map((el, idx) => {
+                    {chapters.length > 0 &&
+                        chapters?.map((el, idx) => {
                             return (
                                 <MobileNavItem
                                     key={el.chapter}
