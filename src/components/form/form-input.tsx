@@ -37,7 +37,8 @@ export const InputWithFloatingLabel = ({
         switch (name) {
             case "email":
                 !REG_EX.test(value)
-                    ? (createError(Errors.EMAIL), setIsValid(false))
+                    ? (createError(Errors.EMAIL),
+                      setIsValid && setIsValid(false))
                     : setIsValid(true);
                 break;
 
@@ -55,28 +56,26 @@ export const InputWithFloatingLabel = ({
 
     return (
         <InputBoxItem boxwidth={boxwidth}>
-            <>
-                <FloatingLabel
-                    active={active}
+            <FloatingLabel
+                active={active}
+                value={value}
+                {...otherProps}
+                marginTop={marginTop}
+                activeColor={activeColor}
+                mobileLabelLeft={mobileLabelLeft}
+            >
+                <FloatingInput
+                    onBlur={() => onBlur(name, value)}
+                    onFocus={onFocus}
+                    onChange={({ target: { name, value } }) =>
+                        onHandleChange(name, value)
+                    }
                     value={value}
-                    {...otherProps}
-                    marginTop={marginTop}
-                    activeColor={activeColor}
-                    mobileLabelLeft={mobileLabelLeft}
-                >
-                    <FloatingInput
-                        onBlur={() => onBlur(name, value)}
-                        onFocus={onFocus}
-                        onChange={({ target: { name, value } }) =>
-                            onHandleChange(name, value)
-                        }
-                        value={value}
-                        name={name}
-                        type={type}
-                    />
-                    {children}
-                </FloatingLabel>
-            </>
+                    name={name}
+                    type={type}
+                />
+                {children}
+            </FloatingLabel>
         </InputBoxItem>
     );
 };

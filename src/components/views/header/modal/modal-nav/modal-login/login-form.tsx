@@ -34,18 +34,26 @@ export const LoginForm: FC = () => {
             createError("Type valid data");
             return;
         }
-
+        // if db off
         if (!error && isValid) {
-            try {
-                loginUser(userData.email, userData.password);
-            } catch (error) {
-                createError(error);
-            }
+            router.push("/");
+            changeIsLoggedIn(true);
         }
+
+        // db on
+        // if (!error && isValid) {
+        //     try {
+        //         loginUser(userData.email, userData.password);
+
+        //     } catch (error) {
+        //         createError(error);
+        //     }
+        // }
     };
-    useEffect(() => {
-        isLoggedIn && router.push("/");
-    }, [isLoggedIn]);
+    // db on
+    // useEffect(() => {
+    //     isLoggedIn && router.push("/");
+    // }, [isLoggedIn]);
     return (
         <>
             <FormComponent

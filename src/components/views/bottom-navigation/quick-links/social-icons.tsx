@@ -11,7 +11,7 @@ export const BottomSocialIcons: FC = () => {
     return (
         <WrapperBox direction="column" marginTop={33}>
             <PureHeader header={"Volg ons"} color={Colors.WHITE} />
-            <List display="flex" marginTop={20}>
+            <List display="flex" marginTop={20} overflow="hidden">
                 {socItems.map(({ name, link }) => (
                     <ListItem key={name} marginRightNotLast={20} height={16}>
                         <PureLink width={"16px"} height={"16px"} link={link}>

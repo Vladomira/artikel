@@ -51,17 +51,24 @@ export const RegisterForm: FC = () => {
             return;
         }
         if (!error && isValid) {
-            try {
-                registerUser(userData.email, userData.password);
-            } catch (error) {
-                changeIsLoggedIn(false);
-                createError(error);
-            }
+            router.push("/");
+            changeIsLoggedIn(true);
         }
+
+        // db on
+        // if (!error && isValid) {
+        //     try {
+        //         registerUser(userData.email, userData.password);
+        //     } catch (error) {
+        //         changeIsLoggedIn(false);
+        //         createError(error);
+        //     }
+        // }
     };
-    useEffect(() => {
-        isLoggedIn && router.push("/");
-    }, [isLoggedIn]);
+    // db on
+    // useEffect(() => {
+    //     isLoggedIn && router.push("/");
+    // }, [isLoggedIn]);
 
     return (
         <>

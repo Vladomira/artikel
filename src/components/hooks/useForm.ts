@@ -16,6 +16,7 @@ export default function useRrgisterForm() {
     const [userData, setUserData] = useState<UserDataProps>(initialUserData);
 
     const [isValid, setIsValid] = useState(false);
+    // const setIsValid = (prop: boolean) => setisValid(prop);
 
     const onHandleChange = (name: string, value: string) => {
         createError("");

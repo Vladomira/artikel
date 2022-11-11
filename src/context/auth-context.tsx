@@ -45,8 +45,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    const changeIsLoading = (prop: boolean) => setIsLoading(prop);
-
     const loginUser = async (
         email: string,
         password: string
@@ -90,7 +88,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         clearAuthHeader();
     };
     const getCurrentUser = async () => {
-        changeIsLoading(true);
+        setIsLoading(true);
         if (!tokenData.access) return;
 
         if (tokenData.access) {
@@ -103,7 +101,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
             } catch (error) {
                 return error.message;
             } finally {
-                changeIsLoading(false);
+                setIsLoading(false);
             }
         }
     };
